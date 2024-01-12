@@ -4,6 +4,9 @@ metadata:
   name: hub-config
 data:
   values.yaml: |
+    prePuller:
+      hook:
+        enabled: false
     hub:
       image:
         pullPolicy: Always
