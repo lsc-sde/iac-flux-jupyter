@@ -48,5 +48,5 @@ spec:
 
   - kind: Secret
     name: jupyter-credentials
-    valuesKey: oauth_client_secret
+    valuesKey: clientsecret
     targetPath: hub.config.AzureAdOAuthenticator.client_secret
