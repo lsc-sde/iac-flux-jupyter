@@ -7,3 +7,4 @@ resources:
   - users.yaml
   - workspaces.yaml
   - secret.yaml
+  - secret-job.yaml
