@@ -22,25 +22,25 @@ data:
         JupyterHub:
           authenticator_class: azuread
           admin_access: true
-          template_paths:
-            - "/usr/local/etc/jupyterhub/custom_templates"
+          #template_paths:
+          #  - "/usr/local/etc/jupyterhub/custom_templates"
           template_vars:
             announcement: |
               Preview only. 
               Subject to rapid, breaking changes. 
               Contact Vishnu.Chandrabalan@lthtr.nhs.uk with feedback/comments.
-      extraFiles:
+      #extraFiles:
         # https://zero-to-jupyterhub.readthedocs.io/en/latest/resources/reference.html#hub-extrafiles
-        customConfig:
-          mountPath: /usr/local/etc/jupyterhub/jupyterhub_config.d/jupyterhub_config_custom.py
-        customPageTemplate:
-          mountPath: /usr/local/etc/jupyterhub/custom_templates/page.html
-        customSpawnPageTemplate:
-          mountPath: /usr/local/etc/jupyterhub/custom_templates/spawn.html
-        customLogo:
-          mountPath: /usr/local/share/jupyterhub/static/lander-logo.png
+        #customConfig:
+        #  mountPath: /usr/local/etc/jupyterhub/jupyterhub_config.d/jupyterhub_config_custom.py
+        #customPageTemplate:
+        #  mountPath: /usr/local/etc/jupyterhub/custom_templates/page.html
+        #customSpawnPageTemplate:
+        #  mountPath: /usr/local/etc/jupyterhub/custom_templates/spawn.html
+        #customLogo:
+        #  mountPath: /usr/local/share/jupyterhub/static/lander-logo.png
       # https://discourse.jupyter.org/t/trouble-configuring-ingress-for-helm-chart/5050/3
-      baseUrl: /landerhub
+      #baseUrl: /landerhub
       extraEnv:
         # keep injected https_proxy - this fixes github oauth redirect
         http_proxy: ""
