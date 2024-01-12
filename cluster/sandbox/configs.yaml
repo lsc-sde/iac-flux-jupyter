@@ -4,6 +4,10 @@ metadata:
   name: environment-config
 data:
   values.yaml: |
+    hub:
+      config:
+        AzureAdOAuthenticator:
+          oauth_callback_url: https://sandbox-jupyter.privatelink.uksouth.azmk8s.io/landerhub/hub/oauth_callback
     ingress:
       hosts:
         - sandbox-jupyter.privatelink.uksouth.azmk8s.io

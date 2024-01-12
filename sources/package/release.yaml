@@ -1,0 +1,52 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: jupyterhub
+spec:
+  targetNamespace: jupyterhub
+  releaseName: jupyterhub
+  chart:
+    spec:
+      chart: jupyterhub
+      sourceRef:
+        kind: HelmRepository
+        name: jupyterhub
+        namespace: jupyterhub
+  interval: 5m0s
+  install:
+    remediation:
+      retries: -1
+  upgrade:
+    remediation:
+      retries: -1
+  valuesFrom:
+  # Shared Config
+  - kind: ConfigMap
+    name: cull-config
+
+  - kind: ConfigMap
+    name: hub-config
+
+  - kind: ConfigMap
+    name: ingress-config
+
+  - kind: ConfigMap
+    name: proxy-config
+
+  - kind: ConfigMap
+    name: singleuser-config
+
+  # Cluster Specific Configs
+  - kind: ConfigMap
+    name: environment-config
+
+  - kind: ConfigMap
+    name: user-config
+
+  - kind: ConfigMap
+    name: workspace-config
+
+  - kind: Secret
+    name: jupyter-credentials
+    valuesKey: oauth_client_secret
+    targetPath: hub.config.AzureAdOAuthenticator.client_secret
