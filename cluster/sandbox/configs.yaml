@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: environment-config
+data:
+  values.yaml: |
+    ingress:
+      hosts:
+        - sandbox-jupyter.privatelink.uksouth.azmk8s.io
+    proxy:
+      https:
+        hosts:
+          - sandbox-jupyter.privatelink.uksouth.azmk8s.io
+    singleuser:
+      image:
+        name: crlander.azurecr.io/vvcb/datascience-notebook
+        tag: 0.1.0

@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: proxy-config
+data:
+  values.yaml: |
+    proxy:
+    # Offload SSL at loadbalancer/nginx
+      https:
+        enabled: true
+        type: offload
+        type: secret
+        secret:
+          name: tls-certificate
+      service:
+        type: ClusterIP
+        # loadBalancerIP: 172.18.16.190
+        # annotations: 
+        #   service.beta.kubernetes.io/azure-load-balancer-internal: "true"

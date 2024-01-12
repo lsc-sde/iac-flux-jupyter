@@ -1,0 +1,8 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - cull.yaml
+  - hub.yaml
+  - ingress.yaml
+  - proxy.yaml
+  - singleuser.yaml
