@@ -2,6 +2,8 @@ apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
   name: jupyterhub
+  annotations:
+    lsc-sde.nhs.uk/definitionVersion: "1.0.0"
 spec:
   targetNamespace: jupyterhub
   releaseName: jupyterhub
