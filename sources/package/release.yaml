@@ -15,6 +15,7 @@ spec:
         name: jupyterhub
         namespace: jupyterhub
   interval: 5m0s
+  timeout: 15m
   install:
     remediation:
       retries: -1
