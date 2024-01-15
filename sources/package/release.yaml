@@ -3,7 +3,7 @@ kind: HelmRelease
 metadata:
   name: jupyterhub
   annotations:
-    lsc-sde.nhs.uk/definitionVersion: "1.0.1"
+    lsc-sde.nhs.uk/definitionVersion: "1.0.2"
 spec:
   targetNamespace: jupyterhub
   releaseName: jupyterhub
@@ -19,9 +19,13 @@ spec:
   install:
     remediation:
       retries: -1
+      disableWait: true
+      disableWaitForJobs: true
   upgrade:
     remediation:
       retries: -1
+      disableWait: true
+      disableWaitForJobs: true
   valuesFrom:
   # Shared Config
   - kind: ConfigMap
