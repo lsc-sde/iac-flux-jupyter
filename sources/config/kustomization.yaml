@@ -7,3 +7,21 @@ resources:
   - ingress.yaml
   - proxy.yaml
   - singleuser.yaml
+configMapGenerator:
+  - name: cull-config
+    files:
+      - values.yaml=cull.yaml
+  - name: hub-config
+    files:
+      - values.yaml=hub.yaml
+  - name: ingress-config
+    files:
+      - values.yaml=ingress.yaml
+  - name: proxy-config
+    files: 
+      - values.yaml=proxy.yaml
+  - name: singleuser-config
+    files:
+      - values.yaml=singleuser.yaml
+configurations:
+  - kustomizeconfig.yaml

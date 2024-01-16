@@ -1,33 +1,21 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: singleuser-config
-data:
-  values.yaml: |
-    singleuser:
-      image:
-        pullPolicy: Always
-      defaultUrl: "/lab"
-      startTimeout: 900
-      memory:
-        limit: 1G
-        guarantee: 256M
-      cpu:
-        limit: 0.5
-        guarantee: 0.25
-      storage:
-        # https://azure.microsoft.com/en-gb/pricing/details/storage/files/
-        capacity: 10Gi
-        homeMountPath: /home/jovyan/personal
-        dynamic:
-          storageClass: landerhub-azurefile
-          storageAccessModes:
-            - ReadWriteMany
-      extraEnv:
-        # keep injected https_proxy - this fixes github oauth redirect
-        http_proxy: ""
-        # https_proxy: ""
-        HTTP_PROXY: ""
-        # HTTPS_PROXY: ""
-        # See https://github.com/jupyter/notebook/issues/5058
-        JUPYTER_RUNTIME_DIR: /tmp
+singleuser:
+  image:
+    pullPolicy: IfNotPresent
+  defaultUrl: "/lab"
+  startTimeout: 900
+  memory:
+    limit: 1G
+    guarantee: 256M
+  cpu:
+    limit: 0.5
+    guarantee: 0.25
+  storage:
+    capacity: 10Gi
+    homeMountPath: /home/jovyan/personal
+    dynamic:
+      storageClass: azurefile
+      storageAccessModes:
+        - ReadWriteMany
+  extraEnv:
+    # See https://github.com/jupyter/notebook/issues/5058
+    JUPYTER_RUNTIME_DIR: /tmp

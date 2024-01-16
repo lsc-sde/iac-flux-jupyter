@@ -1,14 +1,8 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: cull-config
-data:
-  values.yaml: |
-    cull:
-      enabled: true
-      users: false # --cull-users
-      removeNamedServers: false # --remove-named-servers
-      timeout: 3600 # --timeout
-      every: 600 # --cull-every
-      concurrency: 10 # --concurrency
-      maxAge: 0 # --max-age
+cull:
+  enabled: true
+  users: false # --cull-users
+  removeNamedServers: false # --remove-named-servers
+  timeout: 3600 # --timeout
+  every: 600 # --cull-every
+  concurrency: 10 # --concurrency
+  maxAge: 0 # --max-age
