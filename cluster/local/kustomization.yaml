@@ -6,6 +6,4 @@ resources:
   - configs.yaml
   - users.yaml
   - workspaces.yaml
-  - secret.yaml
-  - secret-job.yaml
   - ingress.yaml
