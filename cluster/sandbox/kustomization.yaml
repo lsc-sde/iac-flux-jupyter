@@ -8,3 +8,4 @@ resources:
   - workspaces.yaml
   - secret.yaml
   - secret-job.yaml
+  - ingress.yaml
