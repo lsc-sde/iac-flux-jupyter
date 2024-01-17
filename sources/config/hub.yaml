@@ -1,55 +1,44 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: hub-config
-data:
-  values.yaml: |
-    prePuller:
-      hook:
-        enabled: false
-    hub:
-      image:
-        pullPolicy: Always
-      config:
-        AzureAdOAuthenticator:
-          client_id: 35517ff9-9844-45ec-b32d-46cff0fae54e
-          tenant_id: 90a86382-fc9f-459c-b91a-9852fb08b2cd
-          scope:
-            - openid
-            - name
-            - profile
-            - email
-          username_claim: upn
-          admin_users:
-            - vishnu.chandrabalan@lthtr.nhs.uk
-        JupyterHub:
-          authenticator_class: azuread
-          admin_access: true
-          #template_paths:
-          #  - "/usr/local/etc/jupyterhub/custom_templates"
-          template_vars:
-            announcement: |
-              Preview only. 
-              Subject to rapid, breaking changes. 
-              Contact Vishnu.Chandrabalan@lthtr.nhs.uk with feedback/comments.
-      #extraFiles:
-        # https://zero-to-jupyterhub.readthedocs.io/en/latest/resources/reference.html#hub-extrafiles
-        #customConfig:
-        #  mountPath: /usr/local/etc/jupyterhub/jupyterhub_config.d/jupyterhub_config_custom.py
-        #customPageTemplate:
-        #  mountPath: /usr/local/etc/jupyterhub/custom_templates/page.html
-        #customSpawnPageTemplate:
-        #  mountPath: /usr/local/etc/jupyterhub/custom_templates/spawn.html
-        #customLogo:
-        #  mountPath: /usr/local/share/jupyterhub/static/lander-logo.png
-      # https://discourse.jupyter.org/t/trouble-configuring-ingress-for-helm-chart/5050/3
-      #baseUrl: /landerhub
-      extraEnv:
-        # keep injected https_proxy - this fixes github oauth redirect
-        http_proxy: ""
-        # https_proxy: ""
-        HTTP_PROXY: ""
-        # HTTPS_PROXY: ""
-      livenessProbe:
-        initialDelaySeconds: 5
-        
+prePuller:
+  hook:
+    enabled: false
+hub:
+  image:
+    pullPolicy: Always
+  config:
+    AzureAdOAuthenticator:
+      client_id: 35517ff9-9844-45ec-b32d-46cff0fae54e
+      tenant_id: 90a86382-fc9f-459c-b91a-9852fb08b2cd
+      scope:
+        - openid
+        - name
+        - profile
+        - email
+      username_claim: upn
+      admin_users:
+        - vishnu.chandrabalan@lthtr.nhs.uk
+    JupyterHub:
+      authenticator_class: azuread
+      admin_access: true
+      #template_paths:
+      #  - "/usr/local/etc/jupyterhub/custom_templates"
+      template_vars:
+        announcement: |
+          Preview only. 
+          Subject to rapid, breaking changes. 
+          Contact Vishnu.Chandrabalan@lthtr.nhs.uk with feedback/comments.
+  #extraFiles:
+    # https://zero-to-jupyterhub.readthedocs.io/en/latest/resources/reference.html#hub-extrafiles
+    #customConfig:
+    #  mountPath: /usr/local/etc/jupyterhub/jupyterhub_config.d/jupyterhub_config_custom.py
+    #customPageTemplate:
+    #  mountPath: /usr/local/etc/jupyterhub/custom_templates/page.html
+    #customSpawnPageTemplate:
+    #  mountPath: /usr/local/etc/jupyterhub/custom_templates/spawn.html
+    #customLogo:
+    #  mountPath: /usr/local/share/jupyterhub/static/lander-logo.png
+  # https://discourse.jupyter.org/t/trouble-configuring-ingress-for-helm-chart/5050/3
+  #baseUrl: /landerhub
+  extraEnv: {}
+  livenessProbe:
+    initialDelaySeconds: 5
+    
