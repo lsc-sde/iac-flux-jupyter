@@ -17,5 +17,7 @@ configMapGenerator:
   - name: singleuser-config
     files:
       - values.yaml=singleuser.yaml
+generatorOptions:
+  disableNameSuffixHash: true
 configurations:
   - kustomizeconfig.yaml
