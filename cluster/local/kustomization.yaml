@@ -4,6 +4,7 @@ namespace: jupyterhub
 resources:
   - certificate.yaml
   - ingress.yaml
+  - secret.yaml
 configMapGenerator:
   - name: environment-config
     files:
@@ -18,4 +19,3 @@ generatorOptions:
   disableNameSuffixHash: true
 configurations:
   - kustomizeconfig.yaml
-  - secret.yaml
