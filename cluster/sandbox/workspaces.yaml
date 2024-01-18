@@ -4,13 +4,13 @@ custom:
 # =============================================================================
   environments:
     jupyter_default: &jupyter_default
-      image: crlander.azurecr.io/vvcb/datascience-notebook:0.1.0
+      image: jupyterhub/datascience-notebook:latest # crlander.azurecr.io/vvcb/datascience-notebook:0.1.0
       mem_guarantee: 512M
       mem_limit: 2G
       cpu_guarantee: 0.1
       cpu_limit: 0.5
     jupyter_advanced: &jupyter_advanced
-      image: crlander.azurecr.io/vvcb/datascience-notebook:2023-01-10
+      image: jupyterhub/datascience-notebook:latest # crlander.azurecr.io/vvcb/datascience-notebook:2023-01-10
       mem_guarantee: 2G
       mem_limit: 6G
       cpu_guarantee: 0.2
