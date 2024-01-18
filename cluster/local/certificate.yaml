@@ -1,11 +1,11 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: sandbox-jupyterhub.privatelink.uksouth.azmk8s.io-tls
+  name: jupyterhub.lsc-sde.local-tls
 spec:
   isCA: true
-  commonName: sandbox-jupyterhub.privatelink.uksouth.azmk8s.io
-  secretName: sandbox-jupyterhub.privatelink.uksouth.azmk8s.io-tls
+  commonName: jupyterhub.lsc-sde.local
+  secretName: jupyterhub.lsc-sde.local-tls
   privateKey:
     algorithm: ECDSA
     size: 256
