@@ -1,247 +1,36 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: workspace-config
-data:
-  values.yaml: |
-    custom:
-    # =============================================================================
-    # Define environment objects for reuse in workspaces
-    # =============================================================================
-      environments:
-        rstudio_default: &rstudio_default
-          image: crlander.azurecr.io/vvcb/rstudio-notebook:0.2.0
-          mem_guarantee: 512M
-          mem_limit: 4G
-          cpu_guarantee: 0.1
-          cpu_limit: 1
-          default_url: /rstudio/auth-sign-in?appUri=%2F
+custom:
+# =============================================================================
+# Define environment objects for reuse in workspaces
+# =============================================================================
+  environments:
+    jupyter_default: &jupyter_default
+      image: crlander.azurecr.io/vvcb/datascience-notebook:0.1.0
+      mem_guarantee: 512M
+      mem_limit: 2G
+      cpu_guarantee: 0.1
+      cpu_limit: 0.5
+    jupyter_advanced: &jupyter_advanced
+      image: crlander.azurecr.io/vvcb/datascience-notebook:2023-01-10
+      mem_guarantee: 2G
+      mem_limit: 6G
+      cpu_guarantee: 0.2
+      cpu_limit: 1
 
-        jupyter_default: &jupyter_default
-          image: crlander.azurecr.io/vvcb/datascience-notebook:0.1.0
-          mem_guarantee: 512M
-          mem_limit: 2G
-          cpu_guarantee: 0.1
-          cpu_limit: 0.5
-        jupyter_advanced: &jupyter_advanced
-          image: crlander.azurecr.io/vvcb/datascience-notebook:2023-01-10
-          mem_guarantee: 2G
-          mem_limit: 6G
-          cpu_guarantee: 0.2
-          cpu_limit: 1
+  # =============================================================================
+  # Workspace Definitions
+  # =============================================================================
+  workspaces:
+    00_ws_default:
+      display_name: Default Generic Workspace
+      description: Basic environment for testing with Python R and Julia.
+      default: True
+      start_date: 2022-01-01
+      end_date: 2030-01-01
+      kubespawner_override: *jupyter_default
 
-        code_server: &code_server
-          image: crlander.azurecr.io/vvcb/datascience-code-server:latest
-          mem_guarantee: 2G
-          mem_limit: 16G
-          cpu_guarantee: 0.2
-          cpu_limit: 1
-
-      # =============================================================================
-      # Workspace Definitions
-      # =============================================================================
-      workspaces:
-        00_ws_default:
-          display_name: Default Generic Workspace
-          description: Basic environment for testing with Python R and Julia.
-          default: True
-          start_date: 2022-01-01
-          end_date: 2030-01-01
-          kubespawner_override: *jupyter_default
-
-        10_ws_advanced:
-          display_name: Advanced Generic Workspace
-          description: Advanced environment for testing with Python R and Julia.
-          start_date: 2022-01-01
-          end_date: 2030-01-01
-          kubespawner_override: *jupyter_advanced
-        
-        10_ws_rstudo:
-          display_name: RStudio Default Workspace
-          description: Default RStudio environment.
-          start_date: 2022-01-01
-          end_date: 2030-01-01
-          kubespawner_override: *rstudio_default
-        
-        11_ws_codeserver:
-          display_name: VSCode and Desktop Server Workspace
-          description: JupyterLab with additional options of Code Server and XCFE Desktop
-          start_date: 2022-12-08
-          end_date: 2030-01-01
-          kubespawner_override: *code_server
-
-        nhsx_nlp:
-          display_name: NHSX NLP Workspace
-          description: JupyterLab, Code-Server, XFCE with MedCAT and related tools.
-          start_date: 2023-01-25
-          end_date: 2024-01-05
-          kubespawner_override:
-            image: crlander.azurecr.io/vvcb/scipy-code-server:2023-01-26
-            mem_guarantee: 4G
-            mem_limit: 32G
-            cpu_guarantee: 1
-            cpu_limit: 4
-            node_selector:
-              nodepool: omoppool
-          storage:
-            volumes:
-              - name: landerhub-nhsx-nlp
-                persistentVolumeClaim:
-                  claimName: pvc-landerhub-nhsx-nlp
-            volume_mounts:
-              - name: landerhub-nhsx-nlp
-                mountPath: /home/jovyan/nhsx_nlp
-                readOnly: False
-        neuro_informatics_jupyter:
-          display_name: Neurology Informatics Workspace
-          description: Common workspace for all neurology informatics workloads including NLP
-          start_date: 2022-11-17
-          end_date: 2023-11-30
-          kubespawner_override: 
-            image: crlander.azurecr.io/vvcb/datascience-nlp:minimal
-            mem_guarantee: 8G
-            mem_limit: 24G
-            cpu_guarantee: 0.1
-            cpu_limit: 1
-          storage:
-            volumes:
-              - name: landerhub-neuro-informatics
-                persistentVolumeClaim:
-                  claimName: pvc-landerhub-neuro-informatics  
-            volume_mounts:
-              - name: landerhub-neuro-informatics
-                mountPath: /home/jovyan/landerhub_neuro_informatics
-                readOnly: False
-
-        colorectal_2ww_jupyter:
-          display_name: Colorectal 2WW Analytics
-          description: Colorectal 2WW pathway analysis
-          start_date: 2022-05-01
-          end_date: 2022-12-31
-          kubespawner_override: *jupyter_advanced
-          storage:
-            volumes:
-              - name: landerhub-colorectal2ww
-                persistentVolumeClaim:
-                  claimName: pvc-landerhub-colorectal2ww
-            volume_mounts:
-              - name: landerhub-colorectal2ww
-                mountPath: /home/jovyan/landerhub-colorectal2ww
-                readOnly: False
-
-        fft_jupyter:
-          display_name: FFT Sentiment Analysis
-          description: FFT Sentiment Analysis NLP collaboration with Imperial College London
-          start_date: 2022-05-01
-          end_date: 2023-11-14
-          kubespawner_override:
-            image: crlander.azurecr.io/vvcb/fft-notebook:0.1.0
-            mem_guarantee: 512M
-            mem_limit: 2G
-            cpu_guarantee: 0.1
-            cpu_limit: 0.5
-          storage:
-            volumes:
-              - name: fft-shared
-                persistentVolumeClaim:
-                  claimName: pvc-landerhub-fft
-            volume_mounts:
-              - name: fft-shared
-                mountPath: /home/jovyan/shared_fft
-                readOnly: False
-
-        vc-sd:
-          display_name: VC-SD Workspace
-          description: Shared workspace for VC and SD
-          start_date: 2022-05-01
-          end_date: 2025-12-31
-          kubespawner_override: *jupyter_advanced
-          storage:
-            volumes:
-              - name: landerhub-vc-sd
-                persistentVolumeClaim:
-                  claimName: pvc-landerhub-vc-sd
-            volume_mounts:
-              - name: landerhub-vc-sd
-                mountPath: /home/jovyan/landerhub-vc-sd
-                readOnly: False
-
-        lth-dst:
-          display_name: LTH Data Science Team Workspace
-          description: Shared workspace for LTH DST
-          start_date: 2022-06-22
-          end_date: 2025-12-31
-          kubespawner_override: *jupyter_advanced
-          storage:
-            volumes:
-              - name: landerhub-lth-dst
-                persistentVolumeClaim:
-                  claimName: pvc-landerhub-lth-dst
-            volume_mounts:
-              - name: landerhub-lth-dst
-                mountPath: /home/jovyan/landerhub-lth-dst
-                readOnly: False
-
-        gpu_workspace:
-          display_name: GPU Workspace
-          description: GPU-enabled workspace
-          start_date: 2022-05-01
-          end_date: 2023-11-14
-          kubespawner_override:
-            image: crlander.azurecr.io/vvcb/gpu-jupyter:v1.4_cuda-11.2_ubuntu-20.04
-            mem_guarantee: 32G
-            mem_limit: 110G
-            cpu_guarantee: 4
-            cpu_limit: 16
-            tolerations:
-              - key: nodepool
-                operator: Equal
-                value: gpuspot
-                effect: NoSchedule
-              - key: "kubernetes.azure.com/scalesetpriority"
-                operator: Equal
-                value: spot
-                effect: NoSchedule
-            extra_resource_guarantees:
-              nvidia.com/gpu: "1"
-            extra_resource_limits:
-              nvidia.com/gpu: "1"
-          storage:
-            volumes:
-              - name: fft-shared
-                persistentVolumeClaim:
-                  claimName: pvc-landerhub-fft
-              - name: landerhub-lth-dst
-                persistentVolumeClaim:
-                  claimName: pvc-landerhub-lth-dst
-            volume_mounts:
-              - name: fft-shared
-                mountPath: /home/jovyan/shared_fft
-                readOnly: False
-              - name: landerhub-lth-dst
-                mountPath: /home/jovyan/landerhub-lth-dst
-                readOnly: False
-        
-        beamtree_adi_rstudio:
-          display_name: Beamtree Ainsoff Deterioration Index Analysis
-          description: | 
-            RStudio environment for Service Evaluation of ADI for identifying deteriorating patients by Beamtree Australia. 
-            All work must be stored in /home/jovyan/beamtree_adi. 
-            Any work saved outside of this folder or its children will be lost between sessions.
-          start_date: 2022-11-22
-          end_date: 2023-05-23
-          kubespawner_override:
-            image: crlander.azurecr.io/vvcb/beamtree-rstudio:0.2.0
-            mem_guarantee: 4G
-            mem_limit: 16G
-            cpu_guarantee: 0.1
-            cpu_limit: 4
-          storage:
-            volumes:
-              - name: beamtree-adi
-                persistentVolumeClaim:
-                  claimName: pvc-landerhub-beamtree-adi
-            volume_mounts:
-              - name: beamtree-adi
-                mountPath: /home/jovyan/beamtree_adi
-                readOnly: False
+    10_ws_advanced:
+      display_name: Advanced Generic Workspace
+      description: Advanced environment for testing with Python R and Julia.
+      start_date: 2022-01-01
+      end_date: 2030-01-01
+      kubespawner_override: *jupyter_advanced
