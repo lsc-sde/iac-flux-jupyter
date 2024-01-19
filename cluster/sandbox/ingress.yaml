@@ -15,7 +15,7 @@ spec:
         path: "/"
         backend:
           service:
-            name: jupyterhub
+            name: proxy-public
             port: 
               name: http
   tls:
