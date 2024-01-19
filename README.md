@@ -20,3 +20,9 @@ kubectl get secrets/jupyterhub.lsc-sde.local-tls -n jupyterhub -o=jsonpath="{.da
 ```
 
 this will create a ca.crt file in the directory, you will then need to install it into your trusted root authorities.
+
+You will also need to adjust your machines hosts file to include the line:
+
+```
+127.0.0.1 jupyterhub.lsc-sde.local
+```
