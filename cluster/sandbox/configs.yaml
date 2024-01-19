@@ -25,4 +25,4 @@ singleuser:
 
   storage:
     dynamic:
-      storageClass: azurefile
+      storageClass: jupyter-default

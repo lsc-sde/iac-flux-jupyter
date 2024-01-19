@@ -1,0 +1,25 @@
+# https://kubernetes.io/docs/concepts/storage/storage-classes/#azure-file
+# https://docs.microsoft.com/en-us/azure/aks/concepts-storage#storage-classes
+# https://github.com/Azure/AKS/issues/929
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: jupyter-default
+provisioner: file.csi.azure.com
+parameters:
+  skuName: Standard_ZRS
+  location: uksouth
+  storageAccount: lscsdesandboxw6k82k0qj
+  storeAccountKey: "false"
+  resourceGroup: sub-lsc-tresandbox
+mountOptions:
+  - dir_mode=0777
+  - file_mode=0777
+  - uid=1000
+  - gid=100
+  - mfsymlinks
+  - cache=strict
+  - actimeo=30
+  - metadata
+allowVolumeExpansion: true
+reclaimPolicy: Retain
