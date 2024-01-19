@@ -12,14 +12,20 @@ parameters:
   storageAccount: lscsdesandboxw6k82k0qj
   storeAccountKey: "false"
   resourceGroup: sub-lsc-tresandbox
+  protocol: nfs
 mountOptions:
-  - dir_mode=0777
-  - file_mode=0777
-  - uid=1000
-  - gid=100
-  - mfsymlinks
-  - cache=strict
+  - nconnect=4
+  - noresvport
   - actimeo=30
-  - metadata
+  - rsize=262144
+  - wsize=262144
+#  - dir_mode=0777
+#  - file_mode=0777
+#  - uid=1000
+#  - gid=100
+#  - mfsymlinks
+#  - cache=strict
+#  - actimeo=30
+#  - metadata
 allowVolumeExpansion: true
 reclaimPolicy: Retain
