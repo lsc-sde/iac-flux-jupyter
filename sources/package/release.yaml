@@ -10,6 +10,7 @@ spec:
   chart:
     spec:
       chart: jupyterhub
+      version: 3.2.1
       sourceRef:
         kind: HelmRepository
         name: jupyterhub
@@ -39,6 +40,7 @@ spec:
 
   - kind: ConfigMap
     name: hub-logo
+    targetPath: hub.extraFiles.customLogo
 
   - kind: ConfigMap
     name: ingress-config
