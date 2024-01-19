@@ -19,12 +19,12 @@ hub:
     JupyterHub:
       authenticator_class: azuread
       admin_access: true
-      #template_paths:
-      #  - "/usr/local/etc/jupyterhub/custom_templates"
+      template_paths:
+        - "/usr/local/etc/jupyterhub/custom_templates"
       template_vars:
         announcement: |
-          Preview only. 
-          Subject to rapid, breaking changes. 
+          Preview only.
+          Subject to rapid, breaking changes.
           Contact Vishnu.Chandrabalan@lthtr.nhs.uk with feedback/comments.
   #extraFiles:
     # https://zero-to-jupyterhub.readthedocs.io/en/latest/resources/reference.html#hub-extrafiles
@@ -41,4 +41,3 @@ hub:
   extraEnv: {}
   livenessProbe:
     initialDelaySeconds: 5
-    
