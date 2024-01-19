@@ -1,6 +1,6 @@
 prePuller:
   hook:
-    enabled: false
+    enabled: true
 hub:
   image:
     pullPolicy: Always
