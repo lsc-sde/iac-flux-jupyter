@@ -11,5 +11,5 @@ proxy:
       - sandbox-jupyter.privatelink.uksouth.azmk8s.io
 singleuser:
   image:
-    name: jupyterhub/datascience-notebook
+    name: jupyter/datascience-notebook
     tag: latest

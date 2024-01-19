@@ -16,5 +16,5 @@ proxy:
     enabled: false
 singleuser:
   image:
-    name: jupyterhub/datascience-notebook
+    name: jupyter/datascience-notebook
     tag: latest

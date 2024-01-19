@@ -4,7 +4,7 @@ custom:
 # =============================================================================
   environments:
     jupyter_default: &jupyter_default
-      image: jupyterhub/datascience-notebook:latest
+      image: jupyter/datascience-notebook:latest
       mem_guarantee: 256M
       mem_limit: 2G
       cpu_guarantee: 0.1
