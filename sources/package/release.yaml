@@ -3,7 +3,7 @@ kind: HelmRelease
 metadata:
   name: jupyterhub
   annotations:
-    lsc-sde.nhs.uk/definitionVersion: "1.0.7"
+    lsc-sde.nhs.uk/definitionVersion: "1.0.8"
 spec:
   targetNamespace: jupyterhub
   releaseName: jupyterhub
