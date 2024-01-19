@@ -35,6 +35,12 @@ spec:
     name: hub-config
 
   - kind: ConfigMap
+    name: hub-custom-page-template
+
+  - kind: ConfigMap
+    name: hub-logo
+
+  - kind: ConfigMap
     name: ingress-config
 
   - kind: ConfigMap
