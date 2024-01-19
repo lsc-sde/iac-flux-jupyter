@@ -8,17 +8,17 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-  - host: sandbox-jupyterhub.privatelink.uksouth.azmk8s.io
+  - host: jupyterhub.lsc-sde.local
     http:
       paths:
       - pathType: Prefix
         path: "/"
         backend:
           service:
-            name: jupyterhub
+            name: proxy-public
             port: 
               name: http
   tls:
   - hosts:
-    - sandbox-jupyterhub.privatelink.uksouth.azmk8s.io
-    secretName: sandbox-jupyterhub.privatelink.uksouth.azmk8s.io-tls
+    - jupyterhub.lsc-sde.local
+    secretName: jupyterhub.lsc-sde.local-tls

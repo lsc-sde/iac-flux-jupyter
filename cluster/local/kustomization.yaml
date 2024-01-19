@@ -3,7 +3,19 @@ kind: Kustomization
 namespace: jupyterhub
 resources:
   - certificate.yaml
-  - configs.yaml
-  - users.yaml
-  - workspaces.yaml
   - ingress.yaml
+  - secret.yaml
+configMapGenerator:
+  - name: environment-config
+    files:
+      - values.yaml=configs.yaml
+  - name: user-config
+    files:
+      - values.yaml=users.yaml
+  - name: workspace-config
+    files:
+      - values.yaml=workspaces.yaml
+generatorOptions:
+  disableNameSuffixHash: true
+configurations:
+  - kustomizeconfig.yaml

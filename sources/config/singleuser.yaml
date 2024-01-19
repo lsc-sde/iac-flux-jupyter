@@ -13,7 +13,6 @@ singleuser:
     capacity: 10Gi
     homeMountPath: /home/jovyan/personal
     dynamic:
-      storageClass: azurefile
       storageAccessModes:
         - ReadWriteMany
   extraEnv:

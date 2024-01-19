@@ -1,6 +1,30 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
+  name: certificate-authority
+spec:
+  isCA: true
+  commonName: jupyterhub sandbox certificate
+  secretName: certificate-authority-tls
+  privateKey:
+    algorithm: ECDSA
+    size: 256
+  issuerRef:
+    name: sde
+    kind: ClusterIssuer
+    group: cert-manager.io
+---
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+  name: certificate-authority
+spec:
+  ca:
+    secretName: certificate-authority-tls
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
   name: sandbox-jupyterhub.privatelink.uksouth.azmk8s.io-tls
 spec:
   isCA: true
@@ -10,6 +34,6 @@ spec:
     algorithm: ECDSA
     size: 256
   issuerRef:
-    name: sde
-    kind: ClusterIssuer
+    name: certificate-authority
+    kind: Issuer
     group: cert-manager.io
