@@ -13,3 +13,7 @@ singleuser:
   image:
     name: jupyter/datascience-notebook
     tag: latest
+
+  storage:
+    dynamic:
+      storageClass: azurefile
