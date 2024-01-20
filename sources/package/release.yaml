@@ -10,6 +10,7 @@ spec:
   chart:
     spec:
       chart: jupyterhub
+      version: 3.2.1
       sourceRef:
         kind: HelmRepository
         name: jupyterhub
@@ -32,6 +33,12 @@ spec:
     name: cull-config
 
   - kind: ConfigMap
+    name: hub-custom-page-template
+
+  - kind: ConfigMap
+    name: hub-logo
+
+  - kind: ConfigMap
     name: hub-config
 
   - kind: ConfigMap
@@ -52,6 +59,9 @@ spec:
 
   - kind: ConfigMap
     name: workspace-config
+
+  - kind: ConfigMap
+    name: hub-custom-config-py
 
   - kind: Secret
     name: jupyter-credentials

@@ -19,26 +19,51 @@ hub:
     JupyterHub:
       authenticator_class: azuread
       admin_access: true
-      #template_paths:
-      #  - "/usr/local/etc/jupyterhub/custom_templates"
+      template_paths:
+        - "/usr/local/etc/jupyterhub/custom_templates"
       template_vars:
         announcement: |
-          Preview only. 
-          Subject to rapid, breaking changes. 
+          Preview only.
+          Subject to rapid, breaking changes.
           Contact Vishnu.Chandrabalan@lthtr.nhs.uk with feedback/comments.
-  #extraFiles:
+  extraFiles:
     # https://zero-to-jupyterhub.readthedocs.io/en/latest/resources/reference.html#hub-extrafiles
-    #customConfig:
-    #  mountPath: /usr/local/etc/jupyterhub/jupyterhub_config.d/jupyterhub_config_custom.py
-    #customPageTemplate:
-    #  mountPath: /usr/local/etc/jupyterhub/custom_templates/page.html
-    #customSpawnPageTemplate:
-    #  mountPath: /usr/local/etc/jupyterhub/custom_templates/spawn.html
+    customSpawnPageTemplate:
+      mountPath: /usr/local/etc/jupyterhub/custom_templates/spawn.html
+      stringData: |
+        {% extends "templates/spawn.html" %}
+        {% block heading %}
+          <div class="row text-center">
+            <h2>Analytics Workspaces</h2>
+          </div>
+        {% endblock %}
     #customLogo:
     #  mountPath: /usr/local/share/jupyterhub/static/lander-logo.png
+    customPageTemplate:
+      mountPath: /usr/local/etc/jupyterhub/custom_templates/page.html
+      stringData: |
+        {% extends "templates/page.html" %}
+        {% block logo %}
+          <span id="jupyterhub-logo" class="pull-left">
+              <a href="{{logo_url or base_url}}"><img src='{{base_url}}static/lander-logo.png' alt='LanderHub' class='jpy-logo' title='Home'/></a>
+          </span>
+        {% endblock %}
+        {% block announcement %}
+        <div class="container">
+          <div class="row text-center">
+            <h1>LANDER - Private Cluster</h1>
+            <h3>Lancashire and South Cumbria Data Science Environment</hr>
+          </div>
+        </div>
+        {% if announcement %}
+        <div class="container text-center announcement alert alert-warning">
+          {{ announcement | safe }}
+        </div>
+        {% endif %}
+        {% endblock %}
+
   # https://discourse.jupyter.org/t/trouble-configuring-ingress-for-helm-chart/5050/3
   #baseUrl: /landerhub
   extraEnv: {}
   livenessProbe:
     initialDelaySeconds: 5
-    

@@ -8,11 +8,17 @@ configMapGenerator:
   - name: hub-config
     files:
       - values.yaml=hub.yaml
+  - name: hub-custom-page-template
+    files:
+      - values.yaml=hub-custom-page-template.yaml
+  - name: hub-logo
+    files:
+      - values.yaml=hub-logo.yaml
   - name: ingress-config
     files:
       - values.yaml=ingress.yaml
   - name: proxy-config
-    files: 
+    files:
       - values.yaml=proxy.yaml
   - name: singleuser-config
     files:
