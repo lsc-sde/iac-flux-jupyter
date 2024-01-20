@@ -17,6 +17,9 @@ configMapGenerator:
   - name: workspace-config
     files:
       - values.yaml=workspaces.yaml
+  - name: hub-custom-config-py
+    files:
+      - jupyterhub_custom_config.py
 generatorOptions:
   disableNameSuffixHash: true
 configurations:

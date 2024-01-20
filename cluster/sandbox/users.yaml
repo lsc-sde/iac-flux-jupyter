@@ -1,6 +1,6 @@
 custom:
   users: &users
-    "vishnu.chandrabalan@lthtr.nhs.uk":
+    "admin":
       end_date: 2030-12-31
       workspaces:
         00_ws_default:

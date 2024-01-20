@@ -60,6 +60,10 @@ spec:
   - kind: ConfigMap
     name: workspace-config
 
+  - kind: ConfigMap
+    name: hub-custom-config-py
+    targetPath: hub.extraFiles.customConfig.stringData
+
   - kind: Secret
     name: jupyter-credentials
     valuesKey: clientsecret

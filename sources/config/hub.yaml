@@ -28,10 +28,17 @@ hub:
           Contact Vishnu.Chandrabalan@lthtr.nhs.uk with feedback/comments.
   extraFiles:
     # https://zero-to-jupyterhub.readthedocs.io/en/latest/resources/reference.html#hub-extrafiles
-    #customConfig:
-    #  mountPath: /usr/local/etc/jupyterhub/jupyterhub_config.d/jupyterhub_config_custom.py
-    #customSpawnPageTemplate:
-    #  mountPath: /usr/local/etc/jupyterhub/custom_templates/spawn.html
+    customConfig:
+      mountPath: /usr/local/etc/jupyterhub/jupyterhub_config.d/jupyterhub_config_custom.py
+    customSpawnPageTemplate:
+      mountPath: /usr/local/etc/jupyterhub/custom_templates/spawn.html
+      stringData: |
+        {% extends "templates/spawn.html" %}
+        {% block heading %}
+          <div class="row text-center">
+            <h2>Analytics Workspaces</h2>
+          </div>
+        {% endblock %}
     #customLogo:
     #  mountPath: /usr/local/share/jupyterhub/static/lander-logo.png
     customPageTemplate:
