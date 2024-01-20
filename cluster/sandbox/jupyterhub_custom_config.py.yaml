@@ -170,7 +170,7 @@ hub:
 
 
         c.KubeSpawner.start_timeout = 900
-        c.KubeSpawner.modify_pod_hook = modify_pod_hook
+        # c.KubeSpawner.modify_pod_hook = modify_pod_hook
         c.KubeSpawner.profile_list = get_workspaces
         c.KubeSpawner.profile_form_template = """
                 <style>
