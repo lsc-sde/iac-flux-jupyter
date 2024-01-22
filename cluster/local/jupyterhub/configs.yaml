@@ -1,5 +1,10 @@
 hub:
   config:
+    
+    Authenticator:
+      admin_users: 
+      - shaun.turner
+      allowed_users: []
     GenericOAuthenticator:
       client_id: jupyter
       client_secret: KPGPTwAGW7QDWZnJEIRaUHt9em8FRfrH
