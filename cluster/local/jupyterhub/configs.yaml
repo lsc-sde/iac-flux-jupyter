@@ -19,6 +19,7 @@ hub:
   - name: keycloak-certificates
     configMap:
       name: keycloak-certificate-authority
+      defaultMode: 644
       items:
       - key: keycloak-certs.pem
         path: keycloak-certs.pem
@@ -28,6 +29,14 @@ hub:
     mountPath: /etc/ssl/certs/keycloak-certs.pem
     subPath: keycloak-certs.pem
     readOnly: true
+    
+  lifecycle:
+    postStart:
+      exec:
+        command:
+        - sh
+        - -c
+        - sleep 10; update-ca-certificates
 
 ingress:
   hosts: []
