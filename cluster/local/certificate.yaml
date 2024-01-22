@@ -1,11 +1,12 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: certificate-authority
+  name: jupyter-certificate-authority
+  namespace: cert-manager
 spec:
   isCA: true
   commonName: jupyterhub local certificate
-  secretName: certificate-authority-tls
+  secretName: jupyter-certificate-authority-tls
   privateKey:
     algorithm: ECDSA
     size: 256
@@ -17,10 +18,11 @@ spec:
 apiVersion: cert-manager.io/v1
 kind: Issuer
 metadata:
-  name: certificate-authority
+  name: jupyter-certificate-authority
+  namespace: cert-manager
 spec:
   ca:
-    secretName: certificate-authority-tls
+    secretName: jupyter-certificate-authority-tls
 ---
 apiVersion: cert-manager.io/v1
 kind: Certificate
@@ -45,3 +47,4 @@ spec:
     name: certificate-authority
     kind: Issuer
     group: cert-manager.io
+    namespace: cert-manager
