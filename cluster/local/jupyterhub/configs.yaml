@@ -1,10 +1,5 @@
 hub:
   config:
-    
-    Authenticator:
-      admin_users: 
-      - shaun.turner
-      allowed_users: []
     GenericOAuthenticator:
       client_id: jupyter
       client_secret: KPGPTwAGW7QDWZnJEIRaUHt9em8FRfrH
@@ -21,6 +16,13 @@ hub:
       username_key: preferred_username
       userdata_params:
         state: state
+
+      admin_groups:
+      - jupyter-admins
+
+      allowed_groups: 
+      - jupyter-users
+      
     JupyterHub:
       authenticator_class: generic-oauth
 
