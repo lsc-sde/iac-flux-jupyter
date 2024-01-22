@@ -3,5 +3,3 @@ kind: Kustomization
 namespace: cert-manager
 resources:
   - issuer.yaml
-configurations:
-  - kustomizeconfig.yaml
