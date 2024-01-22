@@ -7,7 +7,7 @@ hub:
       authorize_url: https://keycloak.lsc-sde.local/realms/lsc-sde/protocol/openid-connect/auth
       token_url: https://keycloak.lsc-sde.local/realms/lsc-sde/protocol/openid-connect/token
       userdata_url: https://keycloak.lsc-sde.local/realms/lsc-sde/protocol/openid-connect/userinfo
-      logout_redirect_url: https://keycloak.lsc-sde.local/realms/lsc-sde/protocol/openid-connect/logout?redirect_uri=https://jupyterhub.lsc-sde.local/
+      logout_redirect_url: https://keycloak.lsc-sde.local/realms/lsc-sde/protocol/openid-connect/logout
       login_service: keycloak
       scope: 
       - 'openid'
