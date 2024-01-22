@@ -8,7 +8,7 @@ hub:
     GenericOAuthenticator:
       client_id: jupyter
       client_secret: KPGPTwAGW7QDWZnJEIRaUHt9em8FRfrH
-      oauth_callback_url: http://jupyterhub.lsc-sde.local/hub/oauth_callback
+      oauth_callback_url: https://jupyterhub.lsc-sde.local/hub/oauth_callback
       authorize_url: https://keycloak.lsc-sde.local/realms/lsc-sde/protocol/openid-connect/auth
       token_url: https://keycloak.lsc-sde.local/realms/lsc-sde/protocol/openid-connect/token
       userdata_url: https://keycloak.lsc-sde.local/realms/lsc-sde/protocol/openid-connect/userinfo
