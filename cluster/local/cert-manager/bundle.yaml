@@ -16,7 +16,7 @@ spec:
 
   target:
     configMap:
-      key: "jupyterhub.crt"
+      key: "ca-certificates.crt"
     additionalFormats:
       jks:
         key: "jupyterhub.jks"
