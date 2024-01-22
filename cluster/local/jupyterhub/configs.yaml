@@ -19,7 +19,7 @@ hub:
   - name: keycloak-certificates
     configMap:
       name: keycloak-certificate-authority
-      defaultMode: 644
+      defaultMode: 0644
       items:
       - key: keycloak-certs.pem
         path: keycloak-certs.pem
@@ -29,7 +29,7 @@ hub:
     mountPath: /etc/ssl/certs/keycloak-certs.pem
     subPath: keycloak-certs.pem
     readOnly: true
-    
+
   lifecycle:
     postStart:
       exec:
