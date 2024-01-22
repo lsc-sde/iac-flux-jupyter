@@ -60,8 +60,8 @@ spec:
   - kind: ConfigMap
     name: workspace-config
 
-  - kind: ConfigMap
-    name: hub-custom-config-py
+#  - kind: ConfigMap
+#    name: hub-custom-config-py
 
   - kind: Secret
     name: jupyter-credentials
