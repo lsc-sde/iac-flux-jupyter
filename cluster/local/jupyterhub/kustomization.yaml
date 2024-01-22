@@ -5,6 +5,7 @@ resources:
   - certificate.yaml
   - ingress.yaml
   - secret.yaml
+  - namespace.yaml
 configMapGenerator:
   - name: environment-config
     files:
