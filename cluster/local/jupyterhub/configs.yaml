@@ -30,14 +30,6 @@ hub:
     subPath: keycloak-certs.pem
     readOnly: true
 
-  lifecycle:
-    postStart:
-      exec:
-        command:
-        - sh
-        - -c
-        - sleep 10; update-ca-certificates
-
 ingress:
   hosts: []
 proxy:
