@@ -19,6 +19,5 @@ spec:
     size: 256
   issuerRef:
     name: certificate-authority
-    kind: Issuer
+    kind: ClusterIssuer
     group: cert-manager.io
-    namespace: cert-manager
