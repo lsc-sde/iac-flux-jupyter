@@ -4,15 +4,19 @@ metadata:
   name: jupyter-certificate-authority  
 spec:
   sources:
-  - useDefaultCAs: false
+  - useDefaultCAs: true
 
   - secret:
       name: "jupyter-certificate-authority-tls"
       key: "tls.crt"
+  
+  - secret:
+      name: "keycloak-certificate-authority-tls"
+      key: "tls.crt"
 
   target:
     configMap:
-      key: "jupyterhub.pem"
+      key: "jupyterhub.crt"
     additionalFormats:
       jks:
         key: "jupyterhub.jks"

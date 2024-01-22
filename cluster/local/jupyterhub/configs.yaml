@@ -16,18 +16,18 @@ hub:
       authenticator_class: generic-oauth
 
   extraVolumes:
-  - name: keycloak-certificates
+  - name: jupyterhub-certificates
     configMap:
-      name: keycloak-certificate-authority
+      name: jupyterhub-certificate-authority
       defaultMode: 0644
       items:
-      - key: keycloak-certs.pem
-        path: keycloak-certs.pem
+      - key: jupyterhub.crt
+        path: jupyterhub.crt
 
   extraVolumeMounts:
-  - name: keycloak-certificates
-    mountPath: /etc/ssl/certs/keycloak-certs.pem
-    subPath: keycloak-certs.pem
+  - name: jupyterhub-certificates
+    mountPath: /etc/ssl/certs/ca-certificates.crt
+    subPath: ca-certificates.crt
     readOnly: true
 
 ingress:
