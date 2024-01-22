@@ -20,14 +20,10 @@ hub:
     configMap:
       name: jupyterhub-certificate-authority
       defaultMode: 0644
-      items:
-      - key: jupyterhub.crt
-        path: jupyterhub.crt
 
   extraVolumeMounts:
   - name: jupyterhub-certificates
-    mountPath: /etc/ssl/certs/ca-certificates.crt
-    subPath: ca-certificates.crt
+    mountPath: /etc/ssl/certs
     readOnly: true
 
 ingress:
