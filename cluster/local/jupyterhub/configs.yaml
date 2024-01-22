@@ -22,7 +22,9 @@ hub:
 
       allowed_groups: 
       - jupyter-users
-      
+
+      claim_groups_key: groups
+
     JupyterHub:
       authenticator_class: generic-oauth
 
