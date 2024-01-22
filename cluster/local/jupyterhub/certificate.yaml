@@ -1,0 +1,24 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: jupyterhub.lsc-sde.local-tls
+spec:
+  isCA: false
+  commonName: jupyterhub.lsc-sde.local
+  secretName: jupyterhub.lsc-sde.local-tls
+  subject:
+    organizations:
+    - lsc-sde
+  usages: 
+  - server auth
+  - client auth
+  dnsNames: 
+  - jupyterhub.lsc-sde.local
+  privateKey:
+    algorithm: ECDSA
+    size: 256
+  issuerRef:
+    name: certificate-authority
+    kind: Issuer
+    group: cert-manager.io
+    namespace: cert-manager
