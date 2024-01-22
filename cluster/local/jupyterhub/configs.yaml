@@ -14,6 +14,21 @@ hub:
         state: state
     JupyterHub:
       authenticator_class: generic-oauth
+
+  extraVolumes:
+  - name: keycloak-certificates
+    configMap:
+      name: keycloak-certificate-authority
+      items:
+      - key: keycloak-certs.pem
+        path: keycloak-certs.pem
+
+  extraVolumeMounts:
+  - name: keycloak-certificates
+    mountPath: /etc/ssl/certs/keycloak-certs.pem
+    subPath: keycloak-certs.pem
+    readOnly: true
+
 ingress:
   hosts: []
 proxy:
