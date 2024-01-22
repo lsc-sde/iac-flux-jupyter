@@ -12,12 +12,12 @@ spec:
 
   target:
     configMap:
-      key: "root-certs.pem"
+      key: "jupyterhub.pem"
     additionalFormats:
       jks:
-        key: "bundle.jks"
+        key: "jupyterhub.jks"
       pkcs12:
-        key: "bundle.p12"
+        key: "jupyterhub.p12"
 
     namespaceSelector:
       matchLabels:
