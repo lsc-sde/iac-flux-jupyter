@@ -6,6 +6,7 @@ resources:
   - secret.yaml
   - secret-job.yaml
   - ingress.yaml
+  - namespace.yaml
   - storage
 configMapGenerator:
   - name: environment-config
