@@ -1,0 +1,55 @@
+hub:
+  config:
+    GenericOAuthenticator:
+      client_id: jupyter
+      client_secret: cvwwxnehEsebw8Z2c5MrAri7TO1y1Ej2 # TODO get rid of this
+      oauth_callback_url: https://jupyterhub.lsc-sde.local/hub/oauth_callback
+      authorize_url: https://keycloak.lsc-sde.local/realms/lsc-sde/protocol/openid-connect/auth
+      token_url: https://keycloak.lsc-sde.local/realms/lsc-sde/protocol/openid-connect/token
+      userdata_url: https://keycloak.lsc-sde.local/realms/lsc-sde/protocol/openid-connect/userinfo
+      logout_redirect_url: https://keycloak.lsc-sde.local/realms/lsc-sde/protocol/openid-connect/logout
+      login_service: keycloak
+      scope: 
+      - 'openid'
+      - 'profile'
+      - 'groups'
+      
+      username_key: preferred_username
+      userdata_params:
+        state: state
+
+      admin_groups:
+      - jupyter-admins
+
+      allowed_groups: 
+      - jupyter-users
+
+      claim_groups_key: groups
+
+    JupyterHub:
+      authenticator_class: generic-oauth
+
+  extraVolumes:
+  - name: jupyterhub-certificates
+    configMap:
+      name: jupyterhub-certificate-authority
+      defaultMode: 0644
+
+  extraVolumeMounts:
+  - name: jupyterhub-certificates
+    mountPath: /etc/ssl/certs
+    readOnly: true
+
+ingress:
+  hosts: []
+proxy:
+  https:
+    enabled: false
+singleuser:
+  image:
+    name: jupyter/datascience-notebook
+    tag: latest
+
+  storage:
+    dynamic:
+      storageClass: jupyter-default

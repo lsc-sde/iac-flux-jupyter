@@ -18,6 +18,6 @@ spec:
     algorithm: ECDSA
     size: 256
   issuerRef:
-    name: certificate-authority
+    name: jupyter-certificate-authority
     kind: ClusterIssuer
     group: cert-manager.io
