@@ -14,11 +14,11 @@ spec:
       name: "keycloak-certificate-authority-tls"
       key: "tls.crt"
 
-  - secret:
+  - configMap:
       name: nhs-certificates
       key: root-nwsis-ca.crt
       
-  - secret:
+  - configMap:
       name: nhs-certificates
       key: sub-lth-ca
 
