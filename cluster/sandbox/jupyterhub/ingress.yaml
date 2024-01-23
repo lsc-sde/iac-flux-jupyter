@@ -8,7 +8,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-  - host: sandbox-jupyterhub.privatelink.uksouth.azmk8s.io
+  - host: sandbox-jupyter.xlscsde.nhs.uk
     http:
       paths:
       - pathType: Prefix
@@ -20,5 +20,5 @@ spec:
               name: http
   tls:
   - hosts:
-    - sandbox-jupyterhub.privatelink.uksouth.azmk8s.io
-    secretName: sandbox-jupyterhub.privatelink.uksouth.azmk8s.io-tls
+    - sandbox-jupyter.xlscsde.nhs.uk
+    secretName: sandbox-jupyter.xlscsde.nhs.uk-tls
