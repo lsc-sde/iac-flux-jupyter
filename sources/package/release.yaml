@@ -3,7 +3,7 @@ kind: HelmRelease
 metadata:
   name: jupyterhub
   annotations:
-    lsc-sde.nhs.uk/definitionVersion: "1.0.8"
+    lsc-sde.nhs.uk/definitionVersion: "1.0.9"
 spec:
   targetNamespace: jupyterhub
   releaseName: jupyterhub
@@ -60,10 +60,10 @@ spec:
   - kind: ConfigMap
     name: workspace-config
 
-  - kind: ConfigMap
-    name: hub-custom-config-py
+#  - kind: ConfigMap
+#    name: hub-custom-config-py
 
   - kind: Secret
     name: jupyter-credentials
     valuesKey: clientsecret
-    targetPath: hub.config.AzureAdOAuthenticator.client_secret
+    targetPath: hub.config.GenericOAuthenticator.client_secret
