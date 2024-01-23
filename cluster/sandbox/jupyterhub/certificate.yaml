@@ -11,5 +11,5 @@ spec:
     size: 256
   issuerRef:
     name: jupyter-certificate-authority
-    kind: CusterIssuer
+    kind: ClusterIssuer
     group: cert-manager.io
