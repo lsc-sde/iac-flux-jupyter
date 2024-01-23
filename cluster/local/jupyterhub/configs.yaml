@@ -2,7 +2,7 @@ hub:
   config:
     GenericOAuthenticator:
       client_id: jupyter
-      client_secret: KPGPTwAGW7QDWZnJEIRaUHt9em8FRfrH
+      client_secret: cvwwxnehEsebw8Z2c5MrAri7TO1y1Ej2 # TODO get rid of this
       oauth_callback_url: https://jupyterhub.lsc-sde.local/hub/oauth_callback
       authorize_url: https://keycloak.lsc-sde.local/realms/lsc-sde/protocol/openid-connect/auth
       token_url: https://keycloak.lsc-sde.local/realms/lsc-sde/protocol/openid-connect/token
