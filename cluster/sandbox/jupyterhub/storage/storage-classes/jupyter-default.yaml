@@ -13,6 +13,7 @@ parameters:
   storeAccountKey: "true"
   secretName: jupyter-storage
   secretNamespace: jupyterhub
+  server: lscsdesandboxw6k82k0qj.privatelink.file.core.windows.net
   resourceGroup: lscsdesandbox-rg
 mountOptions:
   - dir_mode=0777
