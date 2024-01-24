@@ -20,9 +20,9 @@ mountOptions:
   - file_mode=0777
   - uid=1000
   - gid=100
-  - mfsymlinks
-  - cache=strict
-  - actimeo=30
-  - metadata
+  - mfsymlinks # Enable support for Minshall+French symlinks 
+  - cache=strict # https://linux.die.net/man/8/mount.cifs
+  - actimeo=30 # reduce latency for metadata-heavy workload
+  - nosharesock # reduce probability of reconnect race
 allowVolumeExpansion: true
 reclaimPolicy: Retain
