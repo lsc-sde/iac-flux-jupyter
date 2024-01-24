@@ -13,7 +13,7 @@ parameters:
   storeAccountKey: "true"
   secretName: jupyter-storage
   secretNamespace: jupyterhub
-  resourceGroup: sub-lsc-tresandbox
+  resourceGroup: lscsdesandbox-rg
 mountOptions:
   - dir_mode=0777
   - file_mode=0777

@@ -50,6 +50,5 @@ singleuser:
     tag: latest
 
   storage:
-    #dynamic:
-    #  storageClass: jupyter-default
-    type: none
+    dynamic:
+      storageClass: jupyter-default
