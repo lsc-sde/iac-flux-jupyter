@@ -175,6 +175,10 @@ hub:
             return pod
 
         def userdata_hook(spawner, auth_state):
+            spawner.log.info(
+                f"Got state {auth_state} Please remove this log information when not debugging."
+            )
+
             spawner.userdata = auth_state["userdata"]
 
         c.KubeSpawner.start_timeout = 900
