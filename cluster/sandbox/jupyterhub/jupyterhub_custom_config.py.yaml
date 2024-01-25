@@ -20,6 +20,11 @@ hub:
 
         def get_workspaces(spawner: KubeSpawner):
             user = spawner.user.name
+            
+            spawner.log.info(
+                f"Logged in as {user}. Please remove this log information when not debugging."
+            )
+
             # ToDo: Find a better way of dealing with new users.
             try:
                 # accessing user workspaces using email id in dot notation does not work
