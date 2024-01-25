@@ -4,6 +4,7 @@ hub:
       mountPath: /usr/local/etc/jupyterhub/jupyterhub_config.d/jupyterhub_config_custom.py
       stringData: |
         from datetime import datetime, timedelta
+        from secrets import token_hex
 
         from kubernetes_asyncio import client
         from kubernetes_asyncio.client.models import (
@@ -177,6 +178,11 @@ hub:
             spawner.userdata = auth_state["userdata"]
 
         c.KubeSpawner.start_timeout = 900
+        c.JupyterHub.authenticator_class = 'oauthenticator.generic.GenericOAuthenticator'
+        c.GenericOAuthenticator.enable_auth_state = True
+        os.environ['JUPYTERHUB_CRYPT_KEY'] = token_hex(32)
+        
+        
         c.Spawner.auth_state_hook = userdata_hook
         # c.KubeSpawner.modify_pod_hook = modify_pod_hook
         c.KubeSpawner.profile_list = get_workspaces
