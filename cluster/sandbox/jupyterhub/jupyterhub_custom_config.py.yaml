@@ -23,33 +23,19 @@ hub:
             user = spawner.user.name
             userdata = spawner.oauth_user
             groups = userdata["groups"]
+            permitted_workspaces = []
+            
             for group in groups:
                 spawner.log.info(
-                    f"User is member of {group}, checking for any workspaces associated with this role"
+                    f"User {user} is member of {group}, checking for any workspaces associated with"
                 )
-
-            # ToDo: Find a better way of dealing with new users.
-            try:
-                # accessing user workspaces using email id in dot notation does not work
-                # user_workspaces:dict = z2jh.get_config(f"custom.users.{user}.workspaces", dict())
-                user_workspaces: dict = (
-                    z2jh.get_config("custom.users").get(user).get("workspaces")
-                )
-            except:
-                user_workspaces = {"00_ws_default": {"end_date": "2023-12-31"}}
-
-            # Add the default workspace to all users.
-            # Otherwise, the code at the end of this function will raise an unhandled error
-            # Will have to reimplement/rethink whether a new user should get access to an analytical environment by default.
-            # Good practice would be for no one to have access unless explicitly set.
-
-            permitted_workspaces = []
-
-            for ws_key, ws_values in user_workspaces.items():
-                ws = z2jh.get_config(f"custom.workspaces.{ws_key}", None)
+            
+                ws = z2jh.get_config(f"custom.workspaces.{group}", None)
                 if ws is None:
-                    spawner.log.error(f"Workspace {ws_key} not found for user {user}.")
+                    spawner.log.info(f"Workspace {group} not found.")
                     continue
+                
+                spawner.log.info(f"Workspace {group} found.")
 
                 # Check if workspace itself has expired
                 ws_end_date = ws.get("end_date", "1900-01-01")
@@ -64,22 +50,22 @@ hub:
                     continue
 
                 # Check if user access to workspace has expired
-                user_ws_end_date = ws_values.get("end_date", "1900-01-01")
-                user_ws_end_date = datetime.strptime(user_ws_end_date, "%Y-%m-%d")
-                user_ws_days_left: timedelta = user_ws_end_date - datetime.today()
-                user_ws_days_left = user_ws_days_left.days
+                # user_ws_end_date = ws_values.get("end_date", "1900-01-01")
+                # user_ws_end_date = datetime.strptime(user_ws_end_date, "%Y-%m-%d")
+                # user_ws_days_left: timedelta = user_ws_end_date - datetime.today()
+                # user_ws_days_left = user_ws_days_left.days
 
-                if user_ws_days_left < 0:
-                    spawner.log.info(
-                        f"User {user}'s access to workspace {ws_key}({ws.get('display_name','' )}) has expired."
-                    )
-                    continue
+                #if user_ws_days_left < 0:
+                #    spawner.log.info(
+                #        f"User {user}'s access to workspace {group}({ws.get('display_name','' )}) has expired."
+                #    )
+                #    continue
 
-                ws["kubespawner_override"]["extra_labels"] = {"workspace": ws_key}
-                ws["slug"] = ws_key
+                ws["kubespawner_override"]["extra_labels"] = {"workspace": group}
+                ws["slug"] = group
 
-                ws["ws_days_left"] = ws_days_left
-                ws["user_ws_days_left"] = user_ws_days_left
+                #ws["ws_days_left"] = ws_days_left
+                #ws["user_ws_days_left"] = user_ws_days_left
 
                 permitted_workspaces.append(ws)
 
