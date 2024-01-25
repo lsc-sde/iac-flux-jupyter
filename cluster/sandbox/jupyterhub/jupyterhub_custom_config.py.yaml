@@ -20,10 +20,9 @@ hub:
 
         def get_workspaces(spawner: KubeSpawner):
             user = spawner.user.name
-            userdata = spawner.userdata
-            
+            userobj = spawner.user            
             spawner.log.info(
-                f"Logged in as {user} with {userdata} Please remove this log information when not debugging."
+                f"Logged in as {userobj} Please remove this log information when not debugging."
             )
 
             # ToDo: Find a better way of dealing with new users.
