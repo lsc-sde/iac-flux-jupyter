@@ -16,13 +16,13 @@ hub:
         from kubespawner.utils import get_k8s_model
 
         import z2jh
-
+    
 
         def get_workspaces(spawner: KubeSpawner):
             user = spawner.user.name
-            userobj = spawner.user            
+            userdata = spawner.userdata            
             spawner.log.info(
-                f"Logged in as {userobj} Please remove this log information when not debugging."
+                f"Logged in as {userdata} Please remove this log information when not debugging."
             )
 
             # ToDo: Find a better way of dealing with new users.
@@ -173,8 +173,11 @@ hub:
 
             return pod
 
+        def userdata_hook(spawner, auth_state):
+            spawner.userdata = auth_state["userdata"]
 
         c.KubeSpawner.start_timeout = 900
+        c.Spawner.auth_state_hook = userdata_hook
         # c.KubeSpawner.modify_pod_hook = modify_pod_hook
         c.KubeSpawner.profile_list = get_workspaces
         c.KubeSpawner.profile_form_template = """
