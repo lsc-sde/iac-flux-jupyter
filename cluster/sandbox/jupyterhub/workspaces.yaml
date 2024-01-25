@@ -34,3 +34,10 @@ custom:
       start_date: 2022-01-01
       end_date: 2030-01-01
       kubespawner_override: *jupyter_advanced
+
+    cancer-research-analyst:
+      display_name: Cancer Research Workspace
+      description: Advanced environment for testing with Python R and Julia. 
+      start_date: 2022-01-01
+      end_date: 2030-01-01
+      kubespawner_override: *jupyter_advanced
