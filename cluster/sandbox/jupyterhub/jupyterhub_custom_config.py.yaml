@@ -21,7 +21,7 @@ hub:
 
         def get_workspaces(spawner: KubeSpawner):
             user = spawner.user.name
-            userdata = spawner.userdata            
+            userdata = spawner.oauth_user
             spawner.log.info(
                 f"Logged in as {userdata} Please remove this log information when not debugging."
             )
@@ -175,11 +175,7 @@ hub:
             return pod
 
         def userdata_hook(spawner, auth_state):
-            spawner.log.info(
-                f"Got state {auth_state} Please remove this log information when not debugging."
-            )
-
-            spawner.userdata = auth_state["userdata"]
+            spawner.oauth_user = auth_state["oauth_user"]
 
         c.KubeSpawner.start_timeout = 900
         c.JupyterHub.authenticator_class = 'oauthenticator.generic.GenericOAuthenticator'
