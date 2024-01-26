@@ -19,20 +19,24 @@ hub:
         import z2jh
         import requests
 
-        def query_keycloak(url, access_token):
+        def query_keycloak(spawner: KubeSpawner, url):
+            spawner.log.info( f"Querying Keycloak at: {url}" )
+            access_token = spawner.access_token
             keycloak_headers = {"Authorization": f"Bearer {access_token}" } 
             keycloak_response = requests.get(url, headers=keycloak_headers, verify="/etc/ssl/certs/ca-certificates.crt")
-            return keycloak_response.json()
+            response_json = keycloak_response.json()
+            spawner.log.info( f"Keycloak returned the following response: {response_json}" )
+            return response_json
 
-        def get_keycloak_groups(access_token):
+        def get_keycloak_groups(spawner: KubeSpawner):
             base_url = z2jh.get_config("hub.config.GenericOAuthenticator.keycloak_api_base_url")
             api_url = f"{base_url}/groups?populateHierarchy=true"
-            return query_keycloak(api_url, access_token)
+            return query_keycloak(spawner, api_url)
             
-        def get_keycloak_group(groupId, access_token):
+        def get_keycloak_group(spawner: KubeSpawner, groupId):
             base_url = z2jh.get_config("hub.config.GenericOAuthenticator.keycloak_api_base_url")
             api_url = f"{base_url}/groups/{groupId}"
-            return query_keycloak(api_url, access_token)
+            return query_keycloak(spawner, api_url)
 
         def get_workspaces(spawner: KubeSpawner):
             user = spawner.user.name
@@ -43,13 +47,13 @@ hub:
             jupyter_workspace_group = {}
             try:
                 # Get the workspace group details so we can use the id in the next phase
-                root_groups = get_keycloak_groups(spawner.access_token)
+                root_groups = get_keycloak_groups(spawner)
                 jupyter_workspace_group_basic = [g for g in root_groups if g['name'] == "jupyter-workspaces"][0]
                 jupyter_workspace_group_id = jupyter_workspace_group_basic["id"]
 
                 # Get the children of the groups so we have the Id's for them for if we need to query them later
-                jupyter_workspace_group = get_keycloak_group(jupyter_workspace_group_id, spawner.access_token)
-                spawner.log.info( f"Keycloak returned the following response: {jupyter_workspace_group} " )
+                jupyter_workspace_group = get_keycloak_group(spawner, jupyter_workspace_group_id)
+
             except Exception as error:
                 spawner.log.error(
                     f"Keycloak returned: {error}"
