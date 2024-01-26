@@ -40,7 +40,7 @@ hub:
             
         def get_keycloak_group_by_path(spawner: KubeSpawner, path):
             base_url = z2jh.get_config("hub.config.GenericOAuthenticator.keycloak_api_base_url")
-            api_url = f"{base_url}/?q=path:{path}"
+            api_url = f"{base_url}/groups?q=path:{path}"
             return query_keycloak(spawner, api_url)[0]
 
         def get_workspaces(spawner: KubeSpawner):
