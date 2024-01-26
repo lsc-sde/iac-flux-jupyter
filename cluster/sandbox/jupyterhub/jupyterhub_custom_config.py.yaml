@@ -60,6 +60,7 @@ hub:
             try:
                 # Get the workspace group details so we can use the id in the next phase
                 jupyter_workspace_group = get_keycloak_group_by_path(spawner, "/jupyter-workspaces")
+                keycloak_workspace_children = get_keycloak_group_children(spawner, keycloak_workspace_group.id)
 
             except Exception as error:
                 spawner.log.error(
@@ -78,7 +79,6 @@ hub:
                     continue
                 try:
                     keycloak_workspace_group = get_keycloak_group_by_path(spawner, group_name)
-                    keycloak_workspace_children = get_keycloak_group_children(spawner, keycloak_workspace_group.id)
                 except Exception as e:
                     spawner.log.info(f"Exception getting keycloak group: {e}.")
 
