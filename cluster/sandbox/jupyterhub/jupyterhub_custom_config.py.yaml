@@ -25,15 +25,14 @@ hub:
             groups = userdata["realm_groups"]
             permitted_workspaces = []
 
-            keycloak_api_base_url = "https://sandbox-keycloak.xlscsde.nhs.uk"
-            keycloak_groups_api_url = f"{keycloak_api_base_url}/admin/realms/lsc-sde/groups?briefRepresentation=false"
+            keycloak_api_base_url = z2jh.get_config("hub.config.GenericOAuthenticator.keycloak_api_base_url")
+            keycloak_groups_api_url = f"{keycloak_api_base_url}/groups?briefRepresentation=false"
             try:
-                spawner.log.info( f"Keycloak returned the following response: {userdata}" )
                 access_token = spawner.access_token
-                keycloak_response = requests.get(keycloak_groups_api_url, headers={"Authorization": f"Bearer {access_token}" }, verify="/etc/ssl/certs/ca-certificates.crt")
-                spawner.log.info(
-                    f"Keycloak returned the following response: {keycloak_response}"
-                )
+                keycloak_headers = {"Authorization": f"Bearer {access_token}" } 
+                spawner.log.info( f"Querying keycloak for groups on url: {keycloak_groups_api_url} using headers: {keycloak_headers} " )
+                keycloak_response = requests.get(keycloak_groups_api_url, headers=keycloak_headers, verify="/etc/ssl/certs/ca-certificates.crt")
+                spawner.log.info( f"Keycloak returned the following response: {keycloak_response} " )
             except Exception as error:
                 spawner.log.error(
                     f"Keycloak returned: {error}"

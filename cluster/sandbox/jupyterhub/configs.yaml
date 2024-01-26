@@ -2,6 +2,7 @@ hub:
   config:
     GenericOAuthenticator:
       client_id: jupyter
+      keycloak_api_base_url: https://sandbox-keycloak.xlscsde.nhs.uk/admin/realms/lsc-sde
       oauth_callback_url: https://sandbox-jupyter.xlscsde.nhs.uk/hub/oauth_callback
       authorize_url: https://sandbox-keycloak.xlscsde.nhs.uk/realms/lsc-sde/protocol/openid-connect/auth
       token_url: https://sandbox-keycloak.xlscsde.nhs.uk/realms/lsc-sde/protocol/openid-connect/token
