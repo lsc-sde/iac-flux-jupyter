@@ -26,3 +26,42 @@ You will also need to adjust your machines hosts file to include the line:
 ```
 127.0.0.1 jupyterhub.lsc-sde.local
 ```
+
+## Keycloak API Documentation
+At the keycloak API documentation isn't great the following is an example of the /admin/realms/{realm}/groups API:
+```json
+[
+    {
+        "id": "429c803a-a033-4e1e-8aea-73b92fd43003",
+        "name": "jupyter-workspaces",
+        "path": "/jupyter-workspaces",
+        "subGroupCount": 2,
+        "access": {
+            "view": True,
+            "viewMembers": True,
+            "manageMembers": False,
+            "manage": False,
+            "manageMembership": False
+        }
+    },
+    {
+        "id": "0239d876-a497-476d-96c8-96bde8d9f718",
+        "name": "some-other-group",
+        "path": "/some-other-group",
+        "subGroupCount": 0,
+        "access": {
+            "view": True,
+            "viewMembers": True,
+            "manageMembers": False,
+            "manage": False,
+            "manageMembership": False
+        }
+    }
+]
+```
+
+once this has been queried we have to use the **id** for the relevant subgroup to query the group. This is done using the API /admin/realms/{realm}/groups/{id}:
+
+```json
+
+```
