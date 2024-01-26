@@ -29,7 +29,7 @@ hub:
             keycloak_api_base_url = "https://sandbox-keycloak.xlscsde.nhs.uk"
             keycloak_groups_api_url = f"{keycloak_api_base_url}/admin/realms/lsc-sde/groups?briefRepresentation=false"
             try:
-                keycloak_request = urllib2.Request(keycloak_groups_api_url, headers={"Authorization": f"access_token {access_token}}"})
+                keycloak_request = urllib2.Request(keycloak_groups_api_url, headers={"Authorization": f"access_token {access_token}" })
                 keycloak_response = urllib2.urlopen(keycloak_request)
                 spawner.log.info(
                     f"Keycloak returned the following response: {keycloak_response}"
