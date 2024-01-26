@@ -11,12 +11,14 @@ hub:
       scope: 
       - 'openid'
       - 'profile'
-      - 'groups'
+      - 'realm_roles'
+      - 'realm_groups'
       
       username_key: preferred_username
       userdata_params:
         state: state
-        groups: groups
+        realm_roles: realm_roles
+        realm_groups: realm_groups
 
       admin_groups:
       - jupyter-admins
@@ -24,7 +26,7 @@ hub:
       allowed_groups: 
       - jupyter-users
 
-      claim_groups_key: groups
+      claim_groups_key: realm_roles
 
     JupyterHub:
       authenticator_class: generic-oauth

@@ -22,23 +22,32 @@ hub:
         def get_workspaces(spawner: KubeSpawner):
             user = spawner.user.name
             userdata = spawner.oauth_user
-            groups = userdata["groups"]
+            groups = userdata["realm_groups"]
             permitted_workspaces = []
-            
-            for group in groups:
+            spawner.log.info(
+                f"User {user} is member of {groups}, checking if these are the correct type"
+            )
+
+            for group_name, group_config in groups:
                 spawner.log.info(
-                    f"User {user} is member of {group}, checking for any workspaces associated with"
+                    f"User {user} is member of {group_name}, checking for any workspaces associated with"
                 )
+
+                ws = dict()
             
-                ws = z2jh.get_config(f"custom.workspaces.{group}", None)
-                if ws is None:
-                    spawner.log.info(f"Workspace {group} not found.")
+                group_type = group_config.get(f"xlscsde.nhs.uk/groupType", None)
+                if group_type is None:
+                    spawner.log.info(f"Group {group} has no xlscsde.nhs.uk/groupType defined.")
+                    continue
+
+                if group_type != "jupyter-workspace":
+                    spawner.log.info(f"Group {group} defines xlscsde.nhs.uk/groupType as {group_type}, not jupyter-workspace.")
                     continue
                 
-                spawner.log.info(f"Workspace {group} found.")
+                spawner.log.info(f"Group {group} does represent a workspace.")
 
                 # Check if workspace itself has expired
-                ws_end_date = ws.get("end_date", "1900-01-01")
+                ws_end_date = group_config.get("workspace.xlscsde.nhs.uk/endDate", "1900-01-01")
                 ws_end_date = datetime.strptime(ws_end_date, "%Y-%m-%d")
                 ws_days_left: timedelta = ws_end_date - datetime.today()
                 ws_days_left = ws_days_left.days
@@ -61,10 +70,14 @@ hub:
                 #    )
                 #    continue
 
+                ws["kubespawner_override"] = group_config.get("workspace.xlscsde.nhs.uk/kubespawnerOverride", "*jupyter_default")
                 ws["kubespawner_override"]["extra_labels"] = {"workspace": group}
                 ws["slug"] = group
-
-                #ws["ws_days_left"] = ws_days_left
+                
+                ws["description"] = group_config.get("workspace.xlscsde.nhs.uk/description", "No description provided") 
+                ws["start_date"] = group_config.get("workspace.xlscsde.nhs.uk/startDate", "1900-01-01")
+                ws["end_date"] = ws_end_date
+                ws["ws_days_left"] = ws_days_left
                 #ws["user_ws_days_left"] = user_ws_days_left
 
                 permitted_workspaces.append(ws)
