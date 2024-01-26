@@ -67,7 +67,7 @@ hub:
                 #    )
                 #    continue
 
-                ws["kubespawner_override"] = group_config.get("workspace.xlscsde.nhs.uk/kubespawnerOverride", "*jupyter_default")
+                # ws["kubespawner_override"]["image"] = group_config.get("workspace.xlscsde.nhs.uk/kubespawnerOverride", "*jupyter_default")
                 # ws["kubespawner_override"]["extra_labels"] = {"workspace": group_name}
                 ws["slug"] = group_name
                 
