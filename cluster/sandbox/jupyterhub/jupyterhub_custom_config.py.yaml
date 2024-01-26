@@ -26,7 +26,7 @@ hub:
             permitted_workspaces = []
 
             keycloak_api_base_url = z2jh.get_config("hub.config.GenericOAuthenticator.keycloak_api_base_url")
-            keycloak_groups_api_url = f"{keycloak_api_base_url}/groups?briefRepresentation=false"
+            keycloak_groups_api_url = f"{keycloak_api_base_url}/groups" # ?briefRepresentation=false
             try:
                 access_token = spawner.access_token
                 keycloak_headers = {"Authorization": f"Bearer {access_token}" } 
