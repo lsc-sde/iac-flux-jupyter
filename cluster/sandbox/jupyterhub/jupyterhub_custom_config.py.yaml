@@ -98,7 +98,7 @@ hub:
                 ws["kubespawner_override"] = kubespawner_override
 
                 # Check if workspace itself has expired
-                ws_end_date = group_attributes.get("workspace.xlscsde.nhs.uk/endDate"), [ "1900-01-01" ])[0]
+                ws_end_date = group_attributes.get("workspace.xlscsde.nhs.uk/endDate", [ "1900-01-01" ])[0]
                 ws_end_date = datetime.strptime(ws_end_date, "%Y-%m-%d")
                 ws_days_left: timedelta = ws_end_date - datetime.today()
                 ws_days_left = ws_days_left.days
