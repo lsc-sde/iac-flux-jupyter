@@ -20,7 +20,6 @@ hub:
         import requests
 
         def query_keycloak(url, access_token):
-            spawner.log.info( f"Querying keycloak for groups on url: {url}" )
             keycloak_headers = {"Authorization": f"Bearer {access_token}" } 
             keycloak_response = requests.get(url, headers=keycloak_headers, verify="/etc/ssl/certs/ca-certificates.crt")
             return keycloak_response.json()
