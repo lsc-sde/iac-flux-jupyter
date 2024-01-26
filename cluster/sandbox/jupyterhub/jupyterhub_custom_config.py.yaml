@@ -34,16 +34,21 @@ hub:
             api_url = f"{base_url}/groups?populateHierarchy=true"
             return query_keycloak(spawner, api_url)
             
+        def get_keycloak_group_children(spawner: KubeSpawner, groupId):
+            base_url = z2jh.get_config("hub.config.GenericOAuthenticator.keycloak_api_base_url")
+            api_url = f"{base_url}/groups/{groupId}/children"
+            return query_keycloak(spawner, api_url)
+            
         def get_keycloak_group(spawner: KubeSpawner, groupId):
             base_url = z2jh.get_config("hub.config.GenericOAuthenticator.keycloak_api_base_url")
             api_url = f"{base_url}/groups/{groupId}"
             return query_keycloak(spawner, api_url)
             
         def get_keycloak_group_by_path(spawner: KubeSpawner, path):
-            pathEncoded = urllib.parse.quote_plus(path)
             base_url = z2jh.get_config("hub.config.GenericOAuthenticator.keycloak_api_base_url")
-            api_url = f"{base_url}/groups?q=path:{pathEncoded}"
-            return query_keycloak(spawner, api_url)[0]
+            api_url = f"{base_url}/groups"
+            results = query_keycloak(spawner, api_url)
+            return [g for g in results if g['path'] == path][0]
 
         def get_workspaces(spawner: KubeSpawner):
             user = spawner.user.name
@@ -73,6 +78,7 @@ hub:
                     continue
                 try:
                     keycloak_workspace_group = get_keycloak_group_by_path(spawner, group_name)
+                    keycloak_workspace_children = get_keycloak_group_children(spawner, keycloak_workspace_group.id)
                 except Exception as e:
                     spawner.log.info(f"Exception getting keycloak group: {e}.")
 
