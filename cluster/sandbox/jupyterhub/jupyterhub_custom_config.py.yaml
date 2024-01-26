@@ -34,7 +34,8 @@ hub:
 
 
                 ws = dict()
-                ws["display_name"] = group_name.split("/")[-1]
+                display_name = group_name.split("/")[-1]
+                ws["display_name"] = display_name
                 
                 spawner.log.info(
                     f"User {user} is member of {group_name}, checking for any workspaces associated with"
@@ -49,9 +50,10 @@ hub:
                 # get the kubespawner_override
                 environment_name = group_config.get("workspace.xlscsde.nhs.uk/environment", "jupyter_default")
                 kubespawner_override = z2jh.get_config("custom.environments").get(environment_name)
-                kubespawner_override["extra_labels"] = {"workspace": group_name}
+                
+                workspace_name = display_name.lower().replace(" ", "-")
+                kubespawner_override["extra_labels"] = {"workspace": workspace_name}
                 ws["kubespawner_override"] = kubespawner_override
-                spawner.log.info(f"Group {group_name} has a kubespawner_override of {kubespawner_override}.")
 
                 # Check if workspace itself has expired
                 ws_end_date = group_config.get("workspace.xlscsde.nhs.uk/endDate", "1900-01-01")
@@ -77,13 +79,15 @@ hub:
                 #    )
                 #    continue
 
-                ws["slug"] = group_name
+                ws["slug"] = workspace_name
                 
                 ws["description"] = group_config.get("workspace.xlscsde.nhs.uk/description", "No description provided") 
                 ws["start_date"] = group_config.get("workspace.xlscsde.nhs.uk/startDate", "1900-01-01")
                 ws["end_date"] = ws_end_date
                 ws["ws_days_left"] = ws_days_left
                 #ws["user_ws_days_left"] = user_ws_days_left
+                
+                spawner.log.info(f"Group {group_name} has a workspace config of {ws}.")
 
                 permitted_workspaces.append(ws)
 
