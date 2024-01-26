@@ -44,11 +44,11 @@ hub:
             api_url = f"{base_url}/groups/{groupId}"
             return query_keycloak(spawner, api_url)
             
-        def get_keycloak_group_by_path(spawner: KubeSpawner, path):
+        def get_keycloak_group_by_name(spawner: KubeSpawner, name):
             base_url = z2jh.get_config("hub.config.GenericOAuthenticator.keycloak_api_base_url")
             api_url = f"{base_url}/groups"
             results = query_keycloak(spawner, api_url)
-            return [g for g in results if g['path'] == path][0]
+            return [g for g in results if g['name'] == name][0]
 
         def get_workspaces(spawner: KubeSpawner):
             user = spawner.user.name
@@ -58,7 +58,7 @@ hub:
             
             try:
                 # Get the workspace group details so we can use the id in the next phase
-                jupyter_workspace_group = get_keycloak_group_by_path(spawner, "/jupyter-workspaces")
+                jupyter_workspace_group = get_keycloak_group_by_name(spawner, "jupyter-workspaces")
                 spawner.log.info(f"jupyter_workspace_group = {jupyter_workspace_group}")
                 keycloak_workspace_children = get_keycloak_group_children(spawner, jupyter_workspace_group["id"])
 
@@ -77,10 +77,10 @@ hub:
                 if not group_name.startswith("/jupyter-workspaces/"):
                     spawner.log.info(f"Group {group_name} is not part of jupyter-workspaces, ignoring.")
                     continue
-                try:
-                    keycloak_workspace_group = get_keycloak_group_by_path(spawner, group_name)
-                except Exception as e:
-                    spawner.log.info(f"Exception getting keycloak group: {e}.")
+                #try:
+                #    keycloak_workspace_group = get_keycloak_group_by_path(spawner, group_name)
+                #except Exception as e:
+                #    spawner.log.info(f"Exception getting keycloak group: {e}.")
 
 
 
