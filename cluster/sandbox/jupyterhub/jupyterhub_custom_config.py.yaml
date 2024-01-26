@@ -17,22 +17,35 @@ hub:
         from kubespawner.utils import get_k8s_model
 
         import z2jh
-    
+        import urllib2
 
         def get_workspaces(spawner: KubeSpawner):
             user = spawner.user.name
             userdata = spawner.oauth_user
+            access_token = userdata["access_token"]
             groups = userdata["realm_groups"]
             permitted_workspaces = []
-            spawner.log.info(
-                f"User {user} is member of {groups}, checking if these are the correct type"
-            )
+
+            keycloak_api_base_url = "https://sandbox-keycloak.xlscsde.nhs.uk"
+            keycloak_groups_api_url = f"{keycloak_api_base_url}/admin/realms/lsc-sde/groups?briefRepresentation=false"
+            try:
+                keycloak_request = urllib2.Request(keycloak_groups_api_url, headers={'Authorization': f'access_token {access_token}}'})
+                keycloak_response = urllib2.urlopen(keycloak_request)
+                spawner.log.info(
+                    f"Keycloak returned the following response: {keycloak_response}"
+                )
+            except Exception as error:
+                spawner.log.error(
+                    f"Keycloak returned: {error}"
+                )
 
             for group_name in groups:
                 group_config = dict()
                 group_config["workspace.xlscsde.nhs.uk/endDate"] = "2030-01-01"
+                
 
-
+                
+                
                 ws = dict()
                 display_name = group_name.split("/")[-1]
                 ws["display_name"] = display_name
