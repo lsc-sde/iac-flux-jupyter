@@ -33,7 +33,7 @@ hub:
                 spawner.log.info(
                     f"User {user} is member of {group_name}, checking for any workspaces associated with"
                 )
-                if group_name.startswith("/jupyter-workspaces/") == false:
+                if !group_name.startswith("/jupyter-workspaces/"):
                     spawner.log.info(f"Group {group_name} is not part of jupyter-workspaces, ignoring.")
                     continue
 
