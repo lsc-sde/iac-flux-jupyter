@@ -29,8 +29,8 @@ hub:
             keycloak_groups_api_url = f"{keycloak_api_base_url}/admin/realms/lsc-sde/groups?briefRepresentation=false"
             try:
                 spawner.log.info( f"Keycloak returned the following response: {userdata}" )
-                access_token = userdata["access_token"]
-                keycloak_request = requests.get(keycloak_groups_api_url, headers={"Authorization": f"access_token {access_token}" })
+                access_token = spawner.access_token
+                keycloak_request = requests.get(keycloak_groups_api_url, headers={"Authorization": f"Bearer {access_token}" })
                 spawner.log.info(
                     f"Keycloak returned the following response: {keycloak_response}"
                 )
@@ -199,6 +199,7 @@ hub:
 
         def userdata_hook(spawner, auth_state):
             spawner.oauth_user = auth_state["oauth_user"]
+            spawner.access_token = auth_state["access_token"]
 
         c.KubeSpawner.start_timeout = 900
         c.JupyterHub.authenticator_class = 'oauthenticator.generic.GenericOAuthenticator'
