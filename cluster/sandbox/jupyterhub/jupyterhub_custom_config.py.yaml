@@ -30,7 +30,6 @@ hub:
 
             for group_name in groups:
                 group_config = dict()
-                group_config["xlscsde.nhs.uk/groupType"] = 
                 spawner.log.info(
                     f"User {user} is member of {group_name}, checking for any workspaces associated with"
                 )
