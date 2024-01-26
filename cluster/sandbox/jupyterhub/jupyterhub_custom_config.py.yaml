@@ -30,9 +30,10 @@ hub:
             try:
                 access_token = spawner.access_token
                 keycloak_headers = {"Authorization": f"Bearer {access_token}" } 
-                spawner.log.info( f"Querying keycloak for groups on url: {keycloak_groups_api_url} using headers: {keycloak_headers} " )
+                spawner.log.info( f"Querying keycloak for groups on url: {keycloak_groups_api_url}" )
                 keycloak_response = requests.get(keycloak_groups_api_url, headers=keycloak_headers, verify="/etc/ssl/certs/ca-certificates.crt")
-                spawner.log.info( f"Keycloak returned the following response: {keycloak_response} " )
+                groups_list = keycloak_response.json()
+                spawner.log.info( f"Keycloak returned the following response: {groups_list} " )
             except Exception as error:
                 spawner.log.error(
                     f"Keycloak returned: {error}"
