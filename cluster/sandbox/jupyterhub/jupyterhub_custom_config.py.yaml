@@ -47,8 +47,10 @@ hub:
 
                 # get the kubespawner_override
                 environment_name = group_config.get("workspace.xlscsde.nhs.uk/environment", "jupyter_default")
-                ws["kubespawner_override"] = z2jh.get_config("custom.environments").get(environment_name)
-                ws["kubespawner_override"]["extra_labels"] = {"workspace": group_name}
+                kubespawner_override = z2jh.get_config("custom.environments").get(environment_name)
+                kubespawner_override["extra_labels"] = {"workspace": group_name}
+                ws["kubespawner_override"] = kubespawner_override
+                spawner.log.info(f"Group {group_name} has a kubespawner_override of {kubespawner_override}.")
 
                 # Check if workspace itself has expired
                 ws_end_date = group_config.get("workspace.xlscsde.nhs.uk/endDate", "1900-01-01")
