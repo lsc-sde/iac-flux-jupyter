@@ -60,7 +60,7 @@ At the keycloak API documentation isn't great the following is an example of the
 ]
 ```
 
-once this has been queried we have to use the **id** for the relevant subgroup to query the group. This is done using the API /admin/realms/{realm}/groups/{id}:
+once this has been queried we have to use the **id** for the relevant subgroup to query the group. This is done using the API /admin/realms/{realm}/groups/{id}/children:
 
 ```json
 [
@@ -71,11 +71,8 @@ once this has been queried we have to use the **id** for the relevant subgroup t
         "parentId": "429c803a-a033-4e1e-8aea-73b92fd43003",
         "subGroupCount": 0,
         "attributes": {
-            "workspace.xlscsde.nhs.uk/kubespawnerOverride": [
-                "*jupyter_advanced"
-            ],
-            "xlscsde.nhs.uk/groupType": [
-                "jupyter-workspace"
+            "workspace.xlscsde.nhs.uk/environment": [
+                "jupyter_advanced"
             ],
             "workspace.xlscsde.nhs.uk/startDate": [
                 "2022-01-01"
@@ -102,16 +99,13 @@ once this has been queried we have to use the **id** for the relevant subgroup t
         "parentId": "429c803a-a033-4e1e-8aea-73b92fd43003",
         "subGroupCount": 0,
         "attributes": {
-            "xlscsde.nhs.uk/groupType": [
-                "jupyter-workspace"
-            ],
-            "workspace.xlscsde.nhs.uk/start_date": [
+            "workspace.xlscsde.nhs.uk/startDate": [
                 "2022-01-01"
             ],
-            "workspace.xlscsde.nhs.uk/kubespawner_override": [
-                "*jupyter_default"
+            "workspace.xlscsde.nhs.uk/environment": [
+                "jupyter_default"
             ],
-            "workspace.xlscsde.nhs.uk/end_date": [
+            "workspace.xlscsde.nhs.uk/endDate": [
                 "2030-01-01"
             ],
             "workspace.xlscsde.nhs.uk/description": [
