@@ -69,8 +69,12 @@ hub:
                 if not group_name.startswith("/jupyter-workspaces/"):
                     spawner.log.info(f"Group {group_name} is not part of jupyter-workspaces, ignoring.")
                     continue
-                
-                keycloak_workspace_group = get_keycloak_group_by_path(spawner, group_name)
+                try:
+                    keycloak_workspace_group = get_keycloak_group_by_path(spawner, group_name)
+                except Exception as e:
+                    spawner.log.info(f"Exception getting keycloak group: {e}.")
+
+
 
                 
                 ws = dict()
