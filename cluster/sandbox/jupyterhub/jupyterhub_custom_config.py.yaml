@@ -30,7 +30,7 @@ hub:
             try:
                 spawner.log.info( f"Keycloak returned the following response: {userdata}" )
                 access_token = spawner.access_token
-                keycloak_request = requests.get(keycloak_groups_api_url, headers={"Authorization": f"Bearer {access_token}", verify="/etc/ssl/certs/ca-certificates.crt" })
+                keycloak_response = requests.get(keycloak_groups_api_url, headers={"Authorization": f"Bearer {access_token}" }, verify="/etc/ssl/certs/ca-certificates.crt")
                 spawner.log.info(
                     f"Keycloak returned the following response: {keycloak_response}"
                 )
