@@ -56,6 +56,7 @@ hub:
             groups = userdata["realm_groups"]
             permitted_workspaces = []
             
+            keycloak_workspace_children = []
             try:
                 # Get the workspace group details so we can use the id in the next phase
                 jupyter_workspace_group = get_keycloak_group_by_name(spawner, "jupyter-workspaces")
@@ -68,9 +69,6 @@ hub:
                 )
 
             for group_name in groups:
-                group_config = dict()
-                group_config["workspace.xlscsde.nhs.uk/endDate"] = "2030-01-01"
-
                 spawner.log.info(
                     f"User {user} is member of {group_name}, checking for any workspaces associated with"
                 )
@@ -82,8 +80,8 @@ hub:
                 #except Exception as e:
                 #    spawner.log.info(f"Exception getting keycloak group: {e}.")
 
-
-
+                group_configuration = [g for g in keycloak_workspace_children if g['path'].casefold() == group_name.casefold()][0]
+                group_attributes = group_configuration.get("attributes", {})
                 
                 ws = dict()
                 display_name = group_name.split("/")[-1]
@@ -92,7 +90,7 @@ hub:
                 spawner.log.info(f"Group {group_name} does represent a workspace.")
 
                 # get the kubespawner_override
-                environment_name = group_config.get("workspace.xlscsde.nhs.uk/environment", "jupyter_default")
+                environment_name = group_attributes.get("workspace.xlscsde.nhs.uk/environment", [ "jupyter_default" ])[0]
                 kubespawner_override = z2jh.get_config("custom.environments").get(environment_name)
                 
                 workspace_name = display_name.lower().replace(" ", "-")
@@ -100,7 +98,7 @@ hub:
                 ws["kubespawner_override"] = kubespawner_override
 
                 # Check if workspace itself has expired
-                ws_end_date = group_config.get("workspace.xlscsde.nhs.uk/endDate", "1900-01-01")
+                ws_end_date = group_attributes.get("workspace.xlscsde.nhs.uk/endDate"), [ "1900-01-01" ])[0]
                 ws_end_date = datetime.strptime(ws_end_date, "%Y-%m-%d")
                 ws_days_left: timedelta = ws_end_date - datetime.today()
                 ws_days_left = ws_days_left.days
@@ -125,8 +123,8 @@ hub:
 
                 ws["slug"] = workspace_name
                 
-                ws["description"] = group_config.get("workspace.xlscsde.nhs.uk/description", "No description provided") 
-                ws["start_date"] = group_config.get("workspace.xlscsde.nhs.uk/startDate", "1900-01-01")
+                ws["description"] = group_attributes.get("workspace.xlscsde.nhs.uk/description", [ "No description provided" ])[0] 
+                ws["start_date"] = group_attributes.get("workspace.xlscsde.nhs.uk/startDate", [ "1900-01-01" ])[0]
                 ws["end_date"] = ws_end_date
                 ws["ws_days_left"] = ws_days_left
                 #ws["user_ws_days_left"] = user_ws_days_left
