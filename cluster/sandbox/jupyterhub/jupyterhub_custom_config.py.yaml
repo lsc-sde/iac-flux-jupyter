@@ -22,13 +22,14 @@ hub:
         def get_workspaces(spawner: KubeSpawner):
             user = spawner.user.name
             userdata = spawner.oauth_user
-            access_token = userdata["access_token"]
             groups = userdata["realm_groups"]
             permitted_workspaces = []
 
             keycloak_api_base_url = "https://sandbox-keycloak.xlscsde.nhs.uk"
             keycloak_groups_api_url = f"{keycloak_api_base_url}/admin/realms/lsc-sde/groups?briefRepresentation=false"
             try:
+                spawner.log.info( f"Keycloak returned the following response: {userdata}" )
+                access_token = userdata["access_token"]
                 keycloak_request = requests.get(keycloak_groups_api_url, headers={"Authorization": f"access_token {access_token}" })
                 spawner.log.info(
                     f"Keycloak returned the following response: {keycloak_response}"
