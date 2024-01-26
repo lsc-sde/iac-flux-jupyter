@@ -34,6 +34,7 @@ hub:
 
 
                 ws = dict()
+                ws["display_name"] = group_name.split("/")[-1]
                 
                 spawner.log.info(
                     f"User {user} is member of {group_name}, checking for any workspaces associated with"
