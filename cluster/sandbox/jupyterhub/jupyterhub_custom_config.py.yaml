@@ -68,7 +68,7 @@ hub:
                 #    continue
 
                 ws["kubespawner_override"] = group_config.get("workspace.xlscsde.nhs.uk/kubespawnerOverride", "*jupyter_default")
-                ws["kubespawner_override"]["extra_labels"] = {"workspace": group_name}
+                # ws["kubespawner_override"]["extra_labels"] = {"workspace": group_name}
                 ws["slug"] = group_name
                 
                 ws["description"] = group_config.get("workspace.xlscsde.nhs.uk/description", "No description provided") 
