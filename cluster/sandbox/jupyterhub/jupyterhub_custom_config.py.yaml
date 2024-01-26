@@ -18,7 +18,8 @@ hub:
 
         import z2jh
         import requests
-
+        import urllib.parse
+        
         def query_keycloak(spawner: KubeSpawner, url):
             spawner.log.info( f"Querying Keycloak at: {url}" )
             access_token = spawner.access_token
@@ -39,8 +40,9 @@ hub:
             return query_keycloak(spawner, api_url)
             
         def get_keycloak_group_by_path(spawner: KubeSpawner, path):
+            pathEncoded = urllib.parse.quote_plus(path)
             base_url = z2jh.get_config("hub.config.GenericOAuthenticator.keycloak_api_base_url")
-            api_url = f"{base_url}/groups?q=path:{path}"
+            api_url = f"{base_url}/groups?q=path:{pathEncoded}"
             return query_keycloak(spawner, api_url)[0]
 
         def get_workspaces(spawner: KubeSpawner):
