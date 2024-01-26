@@ -37,6 +37,11 @@ hub:
             base_url = z2jh.get_config("hub.config.GenericOAuthenticator.keycloak_api_base_url")
             api_url = f"{base_url}/groups/{groupId}"
             return query_keycloak(spawner, api_url)
+            
+        def get_keycloak_group_by_path(spawner: KubeSpawner, path):
+            base_url = z2jh.get_config("hub.config.GenericOAuthenticator.keycloak_api_base_url")
+            api_url = f"{base_url}/groups/{groupId}?q=path:{path}"
+            return query_keycloak(spawner, api_url)[0]
 
         def get_workspaces(spawner: KubeSpawner):
             user = spawner.user.name
@@ -47,12 +52,7 @@ hub:
             jupyter_workspace_group = {}
             try:
                 # Get the workspace group details so we can use the id in the next phase
-                root_groups = get_keycloak_groups(spawner)
-                jupyter_workspace_group_basic = [g for g in root_groups if g['name'] == "jupyter-workspaces"][0]
-                jupyter_workspace_group_id = jupyter_workspace_group_basic["id"]
-
-                # Get the children of the groups so we have the Id's for them for if we need to query them later
-                jupyter_workspace_group = get_keycloak_group(spawner, jupyter_workspace_group_id)
+                jupyter_workspace_group = get_keycloak_group_by_path(spawner, "/jupyter-workspaces")
 
             except Exception as error:
                 spawner.log.error(
@@ -62,21 +62,20 @@ hub:
             for group_name in groups:
                 group_config = dict()
                 group_config["workspace.xlscsde.nhs.uk/endDate"] = "2030-01-01"
-                
 
-                
-                
-                ws = dict()
-                display_name = group_name.split("/")[-1]
-                ws["display_name"] = display_name
-                
                 spawner.log.info(
                     f"User {user} is member of {group_name}, checking for any workspaces associated with"
                 )
                 if not group_name.startswith("/jupyter-workspaces/"):
                     spawner.log.info(f"Group {group_name} is not part of jupyter-workspaces, ignoring.")
                     continue
+                
+                keycloak_workspace_group = get_keycloak_group_by_path(spawner, group_name)
 
+                
+                ws = dict()
+                display_name = group_name.split("/")[-1]
+                ws["display_name"] = display_name
                 
                 spawner.log.info(f"Group {group_name} does represent a workspace.")
 
