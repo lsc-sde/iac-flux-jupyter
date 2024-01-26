@@ -30,6 +30,8 @@ hub:
 
             for group_name in groups:
                 group_config = dict()
+                group_config["workspace.xlscsde.nhs.uk/endDate"] = "2030-01-01"
+
                 spawner.log.info(
                     f"User {user} is member of {group_name}, checking for any workspaces associated with"
                 )
@@ -49,7 +51,7 @@ hub:
 
                 if ws_days_left < 0:
                     spawner.log.info(
-                        f"Workspace {ws_key} expired on {ws_end_date.strftime( '%Y-%m-%d')}. Consider removing it from config."
+                        f"Workspace {group_name} expired on {ws_end_date.strftime( '%Y-%m-%d')}. Consider removing it from config."
                     )
                     continue
 
