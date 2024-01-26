@@ -28,23 +28,19 @@ hub:
                 f"User {user} is member of {groups}, checking if these are the correct type"
             )
 
-            for group_name, group_config in groups:
+            for group_name in groups:
+                group_config = dict()
+                group_config["xlscsde.nhs.uk/groupType"] = 
                 spawner.log.info(
                     f"User {user} is member of {group_name}, checking for any workspaces associated with"
                 )
+                if group_name.startswith("/jupyter-workspaces/") == false:
+                    spawner.log.info(f"Group {group_name} is not part of jupyter-workspaces, ignoring.")
+                    continue
 
                 ws = dict()
-            
-                group_type = group_config.get(f"xlscsde.nhs.uk/groupType", None)
-                if group_type is None:
-                    spawner.log.info(f"Group {group} has no xlscsde.nhs.uk/groupType defined.")
-                    continue
-
-                if group_type != "jupyter-workspace":
-                    spawner.log.info(f"Group {group} defines xlscsde.nhs.uk/groupType as {group_type}, not jupyter-workspace.")
-                    continue
                 
-                spawner.log.info(f"Group {group} does represent a workspace.")
+                spawner.log.info(f"Group {group_name} does represent a workspace.")
 
                 # Check if workspace itself has expired
                 ws_end_date = group_config.get("workspace.xlscsde.nhs.uk/endDate", "1900-01-01")
@@ -66,13 +62,13 @@ hub:
 
                 #if user_ws_days_left < 0:
                 #    spawner.log.info(
-                #        f"User {user}'s access to workspace {group}({ws.get('display_name','' )}) has expired."
+                #        f"User {user}'s access to workspace {group_name}({ws.get('display_name','' )}) has expired."
                 #    )
                 #    continue
 
                 ws["kubespawner_override"] = group_config.get("workspace.xlscsde.nhs.uk/kubespawnerOverride", "*jupyter_default")
-                ws["kubespawner_override"]["extra_labels"] = {"workspace": group}
-                ws["slug"] = group
+                ws["kubespawner_override"]["extra_labels"] = {"workspace": group_name}
+                ws["slug"] = group_name
                 
                 ws["description"] = group_config.get("workspace.xlscsde.nhs.uk/description", "No description provided") 
                 ws["start_date"] = group_config.get("workspace.xlscsde.nhs.uk/startDate", "1900-01-01")
