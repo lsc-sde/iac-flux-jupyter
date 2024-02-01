@@ -62,6 +62,8 @@ spec:
 
   - kind: ConfigMap
     name: hub-custom-config-py
+    valuesKey: jupyterhub_custom_config.py
+    targetPath: hub.extraFiles.customConfig.stringData
 
   - kind: Secret
     name: jupyter-credentials

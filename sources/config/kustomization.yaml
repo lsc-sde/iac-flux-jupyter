@@ -23,6 +23,9 @@ configMapGenerator:
   - name: singleuser-config
     files:
       - values.yaml=singleuser.yaml
+  - name: hub-custom-config-py
+    files:
+      - jupyterhub_custom_config.py=jupyterhub_custom_config.py
 generatorOptions:
   disableNameSuffixHash: true
 configurations:
