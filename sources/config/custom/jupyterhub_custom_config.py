@@ -151,12 +151,15 @@ class WorkspaceVolumeStatus:
         self.exists = exists
         self.namespace = namespace
 
-def get_workspace_volume_status(workspace_name: str, namespace: str):
+def get_workspace_volume_status(spawner: KubeSpawner, workspace_name: str, namespace: str):
     name = f"jupyter-{workspace_name}"
     exists = True
     try:
+        spawner.log.info(f"Checking if PVC {name} on {namespace} exists")
         thread = v1.read_namespaced_persistent_volume_claim(name, namespace, async_req = True)
         response = thread.get()
+        spawner.log.info(f"response: {response}")
+
     except client.exceptions.ApiException as e:
         if e.status == 404:
             exists = False
@@ -165,10 +168,11 @@ def get_workspace_volume_status(workspace_name: str, namespace: str):
     
     return WorkspaceVolumeStatus(name, namespace, exists)
     
-def create_workspace_volume_if_not_exists(workspace_name: str, namespace: str):
-    status = get_workspace_volume_status(workspace_name, namespace)
+def create_workspace_volume_if_not_exists(spawner: KubeSpawner, workspace_name: str, namespace: str):
+    status = get_workspace_volume_status(spawner, workspace_name, namespace)
     if not status.exists:
-
+        spawner.log.info(f"Attempting to mount {status.name} on {status.namespace} does not exist.")
+        
         pv = V1PersistentVolumeClaim(
             metadata = client.V1ObjectMeta(
                 name=status.name,
@@ -190,11 +194,14 @@ def create_workspace_volume_if_not_exists(workspace_name: str, namespace: str):
         )
         v1.create_persistent_volume(pv)
         status.exists = True
+    else: 
+        spawner.log.info(f"PVC {status.name} on {status.namespace} already exists.")
+
     return status
 
 def mount_volume(spawner: KubeSpawner, pod: V1Pod, storage_name : str, namespace: str, read_only : bool = False):
     spawner.log.info(f"Attempting to mount {storage_name} on {namespace}...")
-    storage = create_workspace_volume_if_not_exists(storage_name, namespace)
+    storage = create_workspace_volume_if_not_exists(spawner, storage_name, namespace)
 
     if storage:
         # Remove other user storage if workspace has dedicated storage specified
