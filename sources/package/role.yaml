@@ -7,5 +7,5 @@ metadata:
   name: hub-persistentvolumes
 rules:
 - apiGroups: [""]
-  resources: ["persistentvolumes"]
+  resources: ["persistentvolumeclaims"]
   verbs: ["create", "list", "get"]

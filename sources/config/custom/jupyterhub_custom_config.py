@@ -1,12 +1,18 @@
 from datetime import datetime, timedelta
 from secrets import token_hex
 
-from kubernetes_asyncio import client
+from kubernetes_asyncio import client, config
 from kubernetes_asyncio.client.models import (
     V1ObjectMeta,
     V1Pod,
     V1Volume,
+    V1VolumeSpec,
     V1VolumeMount,
+    V1VolumeMountSpec,
+    V1PersistentVolumeClaim,
+    V1PersistentVolumeClaimSpec,
+    V1PersistentVolumeClaimVolumeSource,
+    V1VolumeResourceRequirements,
 )
 from kubespawner.spawner import KubeSpawner
 from kubespawner.utils import get_k8s_model
@@ -141,49 +147,101 @@ def get_workspaces(spawner: KubeSpawner):
 
     return permitted_workspaces
 
+class WorkspaceVolumeStatus:
+    def __init__(self, name : str, namespace: str, exists : bool):
+        self.name = name
+        self.exists = exists
+        self.namespace = namespace
+
+def get_workspace_volume_status(workspace_name: str, namespace: str):
+    name = f"jupyter-{workspace_name}"
+    exists = True
+    try:
+        v1.read_namespaced_persistent_volume_claim(name, namespace)
+    except client.exceptions.ApiException as e:
+        if e.status == 404:
+            exists = False
+        else:
+            raise e
+    
+    return WorkspaceVolumeStatus(name, namespace, exists)
+    
+def create_workspace_volume_if_not_exists(workspace_name: str, namespace: str):
+    status = get_workspace_volume_status(workspace_name, namespace)
+    if not status.exists:
+        pv = V1PersistentVolumeClaim(
+            metadata = client.V1ObjectMeta(
+                name=status.name,
+                namespace= namespace,
+                labels={
+                    "workspace.xlscsde.nhs.uk/workspace" : workspace_name,
+                    "workspace.xlscsde.nhs.uk/storageType" : "workspace",
+                }
+            ),
+            spec=V1PersistentVolumeClaimSpec(
+                storage_class_name="jupyter-default",
+                access_modes=["ReadWriteMany"],
+                resources=V1VolumeResourceRequirements(
+                    requests={ 
+                        "storage": "10Gi"
+                    }
+                )
+            )
+        )
+        v1.create_persistent_volume(pv)
+        status.exists = True
+    return status
 
 def modify_pod_hook(spawner: KubeSpawner, pod: V1Pod):
     # Add additional storage based on workspace label on pod
     # This ensures that the correct storage is mounted into the correct workspace
     try:
         metadata: V1ObjectMeta = pod.metadata
-
+        namespace = metadata.namespace
         workspace = metadata.labels.get("workspace", "")
+        if workspace:
+            storage = create_workspace_volume_if_not_exists(workspace, namespace)
 
-        storage = z2jh.get_config(f"custom.workspaces.{workspace}.storage")
+            spawner.log.info(f"Attempting to mount {str(storage.name)}...")
 
-        spawner.log.info(f"Attempting to mount {str(storage)}...")
+            if storage:
+                # Remove other user storage if workspace has dedicated storage specified
+                # This prevents user from moving data between workspaces using their personal
+                # storage that appears in all workpaces.
+                # Unless the user is an admin user, in which case leave their storage in place
 
-        if storage:
-            # Remove other user storage if workspace has dedicated storage specified
-            # This prevents user from moving data between workspaces using their personal
-            # storage that appears in all workpaces.
-            # Unless the user is an admin user, in which case leave their storage in place
+                admin_users = z2jh.get_config(
+                    "hub.config.AzureAdOAuthenticator.admin_users", []
+                )
 
-            admin_users = z2jh.get_config(
-                "hub.config.AzureAdOAuthenticator.admin_users", []
-            )
+                if spawner.user.name not in admin_users:
+                    spawner.log.info(
+                        f"Workspace {workspace} has dedicated storage. Removing all user storage from container."
+                    )
+                    pod.spec.volumes = []
+                    pod.spec.containers[0].volume_mounts = []
 
-            if spawner.user.name not in admin_users:
+                volume = V1Volume(
+                    name = workspace,
+                    persistent_volume_claim=V1PersistentVolumeClaimVolumeSource(
+                        claim_name=storage.name
+                    )
+                )
+
+                mount_path= f"/home/jovyan/{workspace}"
+                volume_mount = V1VolumeMount(
+                    name = workspace,
+                    mount_path= mount_path,
+                    read_only = False
+                )
+                pod.spec.volumes.append(volume)
+                pod.spec.containers[0].volume_mounts.append(volume_mount)
+
+                spawner.log.info(f"Successfully mounted {storage.name} to {mount_path}.")
+            else:
                 spawner.log.info(
-                    f"Workspace {workspace} has dedicated storage. Removing all user storage from container."
+                    f"No additional volumes to mount for '{workspace}' workspace."
                 )
-                pod.spec.volumes = []
-                pod.spec.containers[0].volume_mounts = []
-
-            volumes = storage["volumes"]
-            volume_mounts = storage["volume_mounts"]
-            for v, vm in zip(volumes, volume_mounts):
-                pod.spec.volumes.append(get_k8s_model(V1Volume, v))
-                pod.spec.containers[0].volume_mounts.append(
-                    get_k8s_model(V1VolumeMount, vm)
-                )
-
-            spawner.log.info(f"Successfully mounted {v['name']} to {vm['mountPath']}.")
-        else:
-            spawner.log.info(
-                f"No additional volumes to mount for '{workspace}' workspace."
-            )
 
     except Exception as e:
         spawner.log.error(f"Error mounting workspace storage! Error msg {str(e)}")
@@ -225,6 +283,9 @@ def userdata_hook(spawner, auth_state):
     spawner.oauth_user = auth_state["oauth_user"]
     spawner.access_token = auth_state["access_token"]
 
+config.load_incluster_config()
+k8s_api = client.ApiClient() 
+v1 = client.CoreV1Api(k8s_api)
 c.KubeSpawner.start_timeout = 900
 c.JupyterHub.authenticator_class = 'oauthenticator.generic.GenericOAuthenticator'
 c.GenericOAuthenticator.enable_auth_state = True
