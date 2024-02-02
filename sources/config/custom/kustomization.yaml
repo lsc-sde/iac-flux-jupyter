@@ -7,3 +7,5 @@ configMapGenerator:
       - jupyterhub_custom_config.py=jupyterhub_custom_config.py
 generatorOptions:
   disableNameSuffixHash: true
+resources:
+  - jupyterhub-extra-files.yaml
