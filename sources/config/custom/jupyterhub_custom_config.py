@@ -203,19 +203,6 @@ async def mount_volume(spawner: KubeSpawner, pod: V1Pod, storage_name : str, nam
     storage = await create_workspace_volume_if_not_exists(spawner, storage_name, namespace)
 
     if storage:
-        # Remove other user storage if workspace has dedicated storage specified
-        # This prevents user from moving data between workspaces using their personal
-        # storage that appears in all workpaces.
-        # Unless the user is an admin user, in which case leave their storage in place
-
-        admin_users = z2jh.get_config(
-            "hub.config.AzureAdOAuthenticator.admin_users", []
-        )
-
-        if spawner.user.name not in admin_users:
-            pod.spec.volumes = []
-            pod.spec.containers[0].volume_mounts = []
-
         volume = V1Volume(
             name = storage_name,
             persistent_volume_claim=V1PersistentVolumeClaimVolumeSource(
@@ -244,7 +231,21 @@ async def modify_pod_hook(spawner: KubeSpawner, pod: V1Pod):
 
         namespace = os.environ.get("POD_NAMESPACE", "default")
         workspace = metadata.labels.get("workspace", "")
+        
         if workspace:
+            # Remove other user storage if workspace has dedicated storage specified
+            # This prevents user from moving data between workspaces using their personal
+            # storage that appears in all workpaces.
+            # Unless the user is an admin user, in which case leave their storage in place
+
+            admin_users = z2jh.get_config(
+                "hub.config.AzureAdOAuthenticator.admin_users", []
+            )
+
+            if spawner.user.name not in admin_users:
+                pod.spec.volumes = []
+                pod.spec.containers[0].volume_mounts = []
+                
             await mount_volume(spawner, pod, workspace, namespace)
         
         await mount_volume(spawner, pod, "shared", namespace, read_only=True)
