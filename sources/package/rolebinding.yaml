@@ -4,8 +4,7 @@ metadata:
   labels:
     app: jupyterhub
     component: hub
-  name: hub
-  namespace: jupyterhub
+  name: hub-persistentvolumes
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
