@@ -9,3 +9,7 @@ spec:
   transforms:
   - key: jupyterhub_custom_config.py
     type: tobase64
+  - key: page.html
+    type: tobase64
+  - key: spawn.html
+    type: tobase64

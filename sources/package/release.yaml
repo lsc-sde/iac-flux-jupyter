@@ -33,9 +33,6 @@ spec:
     name: cull-config
 
   - kind: ConfigMap
-    name: hub-custom-page-template
-
-  - kind: ConfigMap
     name: hub-logo
 
   - kind: ConfigMap
@@ -64,6 +61,16 @@ spec:
     name: jupyterhub-extra-files-encoded
     valuesKey: jupyterhub_custom_config.py
     targetPath: hub.extraFiles.customConfig.binaryData
+
+  - kind: ConfigMap
+    name: jupyterhub-extra-files-encoded
+    valuesKey: page.html
+    targetPath: hub.extraFiles.customPageTemplate.binaryData
+
+  - kind: ConfigMap
+    name: jupyterhub-extra-files-encoded
+    valuesKey: spawn.html
+    targetPath: hub.extraFiles.customSpawnPageTemplate.binaryData
 
   - kind: Secret
     name: jupyter-credentials
