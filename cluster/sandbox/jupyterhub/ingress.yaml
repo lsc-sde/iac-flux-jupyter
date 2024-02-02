@@ -5,6 +5,7 @@ metadata:
   annotations:
     nginx.ingress.kubernetes.io/ssl-redirect : "true"
     nginx.ingress.kubernetes.io/force-ssl-redirect : "true"
+    xlscsde.nhs.uk/dns-record: jupyter
 spec:
   ingressClassName: nginx
   rules:
