@@ -185,7 +185,7 @@ async def create_workspace_volume_if_not_exists(spawner: KubeSpawner, workspace_
                 storage_class_name="jupyter-default",
                 access_modes=["ReadWriteMany"],
                 resources= {
-                    requests: { 
+                    "requests": { 
                         "storage": "10Gi"
                     }
                 }
