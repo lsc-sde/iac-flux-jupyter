@@ -1,0 +1,15 @@
+apiVersion: xlscsde.nhs.uk/v1
+kind: ConfigMapTransform
+metadata:
+  name: jupyterhub-extra-files
+spec:
+  sourceRef:
+    name: jupyterhub-extra-files
+  targetConfigMap: jupyterhub-extra-files-encoded
+  transforms:
+  - key: jupyterhub_custom_config.py
+    type: tobase64
+  - key: page.html
+    type: tobase64
+  - key: spawn.html
+    type: tobase64

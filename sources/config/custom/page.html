@@ -1,0 +1,19 @@
+{% extends "templates/page.html" %}
+{% block logo %}
+<span id="jupyterhub-logo" class="pull-left">
+    <a href="{{logo_url or base_url}}"><img src='{{base_url}}static/lander-logo.png' alt='LanderHub' class='jpy-logo' title='Home'/></a>
+</span>
+{% endblock %}
+{% block announcement %}
+<div class="container">
+<div class="row text-center">
+    <h1>LANDER - Private Cluster</h1>
+    <h3>Lancashire and South Cumbria Data Science Environment</hr>
+</div>
+</div>
+{% if announcement %}
+<div class="container text-center announcement alert alert-warning">
+{{ announcement | safe }}
+</div>
+{% endif %}
+{% endblock %}
