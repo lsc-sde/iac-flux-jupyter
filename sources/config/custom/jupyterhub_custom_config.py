@@ -10,7 +10,6 @@ from kubernetes_asyncio.client.models import (
     V1PersistentVolumeClaim,
     V1PersistentVolumeClaimSpec,
     V1PersistentVolumeClaimVolumeSource,
-    V1VolumeResourceRequirements,
 )
 from kubespawner.spawner import KubeSpawner
 from kubespawner.utils import get_k8s_model
@@ -179,11 +178,11 @@ def create_workspace_volume_if_not_exists(workspace_name: str, namespace: str):
             spec=V1PersistentVolumeClaimSpec(
                 storage_class_name="jupyter-default",
                 access_modes=["ReadWriteMany"],
-                resources=V1VolumeResourceRequirements(
-                    requests={ 
+                resources= {
+                    requests: { 
                         "storage": "10Gi"
                     }
-                )
+                }
             )
         )
         v1.create_persistent_volume(pv)
