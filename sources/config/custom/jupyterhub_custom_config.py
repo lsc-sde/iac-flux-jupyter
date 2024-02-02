@@ -151,13 +151,12 @@ class WorkspaceVolumeStatus:
         self.exists = exists
         self.namespace = namespace
 
-def get_workspace_volume_status(spawner: KubeSpawner, workspace_name: str, namespace: str):
+async def get_workspace_volume_status(spawner: KubeSpawner, workspace_name: str, namespace: str):
     name = f"jupyter-{workspace_name}"
     exists = True
     try:
         spawner.log.info(f"Checking if PVC {name} on {namespace} exists")
-        thread = v1.read_namespaced_persistent_volume_claim(name, namespace, async_req = True)
-        response = thread.get()
+        response = await v1.read_namespaced_persistent_volume_claim(name, namespace)
         spawner.log.info(f"response: {response}")
 
     except client.exceptions.ApiException as e:
@@ -168,8 +167,8 @@ def get_workspace_volume_status(spawner: KubeSpawner, workspace_name: str, names
     
     return WorkspaceVolumeStatus(name, namespace, exists)
     
-def create_workspace_volume_if_not_exists(spawner: KubeSpawner, workspace_name: str, namespace: str):
-    status = get_workspace_volume_status(spawner, workspace_name, namespace)
+async def create_workspace_volume_if_not_exists(spawner: KubeSpawner, workspace_name: str, namespace: str):
+    status = await get_workspace_volume_status(spawner, workspace_name, namespace)
     if not status.exists:
         spawner.log.info(f"Attempting to mount {status.name} on {status.namespace} does not exist.")
         
@@ -199,9 +198,9 @@ def create_workspace_volume_if_not_exists(spawner: KubeSpawner, workspace_name: 
 
     return status
 
-def mount_volume(spawner: KubeSpawner, pod: V1Pod, storage_name : str, namespace: str, read_only : bool = False):
+async def mount_volume(spawner: KubeSpawner, pod: V1Pod, storage_name : str, namespace: str, read_only : bool = False):
     spawner.log.info(f"Attempting to mount {storage_name} on {namespace}...")
-    storage = create_workspace_volume_if_not_exists(spawner, storage_name, namespace)
+    storage = await create_workspace_volume_if_not_exists(spawner, storage_name, namespace)
 
     if storage:
         # Remove other user storage if workspace has dedicated storage specified
@@ -235,7 +234,7 @@ def mount_volume(spawner: KubeSpawner, pod: V1Pod, storage_name : str, namespace
 
         spawner.log.info(f"Successfully mounted {storage.name} to {mount_path}.")
 
-def modify_pod_hook(spawner: KubeSpawner, pod: V1Pod):
+async def modify_pod_hook(spawner: KubeSpawner, pod: V1Pod):
     # Add additional storage based on workspace label on pod
     # This ensures that the correct storage is mounted into the correct workspace
     
@@ -246,9 +245,9 @@ def modify_pod_hook(spawner: KubeSpawner, pod: V1Pod):
         namespace = os.environ.get("POD_NAMESPACE", "default")
         workspace = metadata.labels.get("workspace", "")
         if workspace:
-            mount_volume(spawner, pod, workspace, namespace)
+            await mount_volume(spawner, pod, workspace, namespace)
         
-        mount_volume(spawner, pod, "shared", namespace, read_only=True)
+        await mount_volume(spawner, pod, "shared", namespace, read_only=True)
     except Exception as e:
         spawner.log.error(f"Error mounting storage! Error msg {str(e)}")
 
