@@ -4,3 +4,5 @@ namespace: jupyterhub
 resources:
   - repository.yaml
   - release.yaml
+  - role.yaml
+  - rolebinding.yaml
