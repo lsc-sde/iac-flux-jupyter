@@ -229,6 +229,8 @@ def mount_volume(spawner: KubeSpawner, pod: V1Pod, storage_name : str, namespace
 def modify_pod_hook(spawner: KubeSpawner, pod: V1Pod):
     # Add additional storage based on workspace label on pod
     # This ensures that the correct storage is mounted into the correct workspace
+    spawner.log.info(f"Attempting to mount storage for pod")
+    
     try:
         metadata: V1ObjectMeta = pod.metadata
         namespace = metadata.namespace
@@ -256,7 +258,7 @@ os.environ['JUPYTERHUB_CRYPT_KEY'] = token_hex(32)
 
 
 c.Spawner.auth_state_hook = userdata_hook
-# c.KubeSpawner.modify_pod_hook = modify_pod_hook
+c.KubeSpawner.modify_pod_hook = modify_pod_hook
 c.KubeSpawner.profile_list = get_workspaces
 c.KubeSpawner.profile_form_template = """
         <style>
