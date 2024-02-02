@@ -170,7 +170,7 @@ async def get_workspace_volume_status(spawner: KubeSpawner, workspace_name: str,
 async def create_workspace_volume_if_not_exists(spawner: KubeSpawner, workspace_name: str, namespace: str):
     status = await get_workspace_volume_status(spawner, workspace_name, namespace)
     if not status.exists:
-        spawner.log.info(f"Attempting to mount {status.name} on {status.namespace} does not exist.")
+        spawner.log.info(f"PVC {status.name} on {status.namespace} does not exist.")
         
         pv = V1PersistentVolumeClaim(
             metadata = client.V1ObjectMeta(
@@ -191,7 +191,7 @@ async def create_workspace_volume_if_not_exists(spawner: KubeSpawner, workspace_
                 }
             )
         )
-        v1.create_persistent_volume(pv)
+        await v1.create_persistent_volume(pv)
         status.exists = True
     else: 
         spawner.log.info(f"PVC {status.name} on {status.namespace} already exists.")
