@@ -192,6 +192,43 @@ def create_workspace_volume_if_not_exists(workspace_name: str, namespace: str):
         status.exists = True
     return status
 
+def mount_volume(spawner: KubeSpawner, pod: V1Pod, storage_name : str, namespace: str):
+    storage = create_workspace_volume_if_not_exists(storage_name, namespace)
+
+    spawner.log.info(f"Attempting to mount {str(storage.name)}...")
+
+    if storage:
+        # Remove other user storage if workspace has dedicated storage specified
+        # This prevents user from moving data between workspaces using their personal
+        # storage that appears in all workpaces.
+        # Unless the user is an admin user, in which case leave their storage in place
+
+        admin_users = z2jh.get_config(
+            "hub.config.AzureAdOAuthenticator.admin_users", []
+        )
+
+        if spawner.user.name not in admin_users:
+            pod.spec.volumes = []
+            pod.spec.containers[0].volume_mounts = []
+
+        volume = V1Volume(
+            name = storage_name,
+            persistent_volume_claim=V1PersistentVolumeClaimVolumeSource(
+                claim_name=storage.name
+            )
+        )
+
+        mount_path= f"/home/jovyan/{storage_name}"
+        volume_mount = V1VolumeMount(
+            name = storage_name,
+            mount_path= mount_path,
+            read_only = False
+        )
+        pod.spec.volumes.append(volume)
+        pod.spec.containers[0].volume_mounts.append(volume_mount)
+
+        spawner.log.info(f"Successfully mounted {storage.name} to {mount_path}.")
+
 def modify_pod_hook(spawner: KubeSpawner, pod: V1Pod):
     # Add additional storage based on workspace label on pod
     # This ensures that the correct storage is mounted into the correct workspace
@@ -200,82 +237,11 @@ def modify_pod_hook(spawner: KubeSpawner, pod: V1Pod):
         namespace = metadata.namespace
         workspace = metadata.labels.get("workspace", "")
         if workspace:
-            storage = create_workspace_volume_if_not_exists(workspace, namespace)
-
-            spawner.log.info(f"Attempting to mount {str(storage.name)}...")
-
-            if storage:
-                # Remove other user storage if workspace has dedicated storage specified
-                # This prevents user from moving data between workspaces using their personal
-                # storage that appears in all workpaces.
-                # Unless the user is an admin user, in which case leave their storage in place
-
-                admin_users = z2jh.get_config(
-                    "hub.config.AzureAdOAuthenticator.admin_users", []
-                )
-
-                if spawner.user.name not in admin_users:
-                    spawner.log.info(
-                        f"Workspace {workspace} has dedicated storage. Removing all user storage from container."
-                    )
-                    pod.spec.volumes = []
-                    pod.spec.containers[0].volume_mounts = []
-
-                volume = V1Volume(
-                    name = workspace,
-                    persistent_volume_claim=V1PersistentVolumeClaimVolumeSource(
-                        claim_name=storage.name
-                    )
-                )
-
-                mount_path= f"/home/jovyan/{workspace}"
-                volume_mount = V1VolumeMount(
-                    name = workspace,
-                    mount_path= mount_path,
-                    read_only = False
-                )
-                pod.spec.volumes.append(volume)
-                pod.spec.containers[0].volume_mounts.append(volume_mount)
-
-                spawner.log.info(f"Successfully mounted {storage.name} to {mount_path}.")
-            else:
-                spawner.log.info(
-                    f"No additional volumes to mount for '{workspace}' workspace."
-                )
-
+            mount_volume(spawner, pod, workspace, namespace)
+        
+        mount_volume(spawner, pod, "shared", namespace)
     except Exception as e:
-        spawner.log.error(f"Error mounting workspace storage! Error msg {str(e)}")
-
-    # Mount read-only shared folder at the end.
-    try:
-        common_storage = {
-            "volume": {
-                "name": "landerhub-common",
-                "persistentVolumeClaim": {"claimName": "pvc-landerhub-common"},
-            },
-            "volume_mount": {
-                "name": "landerhub-common",
-                "mountPath": "/home/jovyan/shared_readonly",
-                "readOnly": True,
-            },
-        }
-
-        # get both volume and volume_mount before adding to exsiting lists.
-        # Error here will skip assigning just the volume and not the mount
-        volume = common_storage["volume"]
-        volume_mount = common_storage["volume_mount"]
-
-        pod.spec.volumes.append(get_k8s_model(V1Volume, volume))
-        pod.spec.containers[0].volume_mounts.append(
-            get_k8s_model(V1VolumeMount, volume_mount)
-        )
-
-        spawner.log.info(
-            f"Successfully mounted {volume['name']} to {volume_mount['mountPath']}."
-        )
-
-    except Exception as e:
-        spawner.log.error(f"Error mounting common shared folders. Error msg: {str(e)}")
+        spawner.log.error(f"Error mounting storage! Error msg {str(e)}")
 
     return pod
 
