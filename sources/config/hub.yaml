@@ -62,6 +62,8 @@ hub:
         {% endif %}
         {% endblock %}
 
+    customConfig:
+      mountPath: /usr/local/etc/jupyterhub/jupyterhub_config.d/jupyterhub_config_custom.py
   # https://discourse.jupyter.org/t/trouble-configuring-ingress-for-helm-chart/5050/3
   #baseUrl: /landerhub
   extraEnv: {}

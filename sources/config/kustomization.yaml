@@ -27,3 +27,5 @@ generatorOptions:
   disableNameSuffixHash: true
 configurations:
   - kustomizeconfig.yaml
+resources:
+  - custom

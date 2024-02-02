@@ -61,7 +61,9 @@ spec:
     name: workspace-config
 
   - kind: ConfigMap
-    name: hub-custom-config-py
+    name: jupyterhub-extra-files-encoded
+    valuesKey: jupyterhub_custom_config.py
+    targetPath: hub.extraFiles.customConfig.binaryData
 
   - kind: Secret
     name: jupyter-credentials
