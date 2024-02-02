@@ -166,6 +166,7 @@ def get_workspace_volume_status(workspace_name: str, namespace: str):
 def create_workspace_volume_if_not_exists(workspace_name: str, namespace: str):
     status = get_workspace_volume_status(workspace_name, namespace)
     if not status.exists:
+
         pv = V1PersistentVolumeClaim(
             metadata = client.V1ObjectMeta(
                 name=status.name,
@@ -189,10 +190,9 @@ def create_workspace_volume_if_not_exists(workspace_name: str, namespace: str):
         status.exists = True
     return status
 
-def mount_volume(spawner: KubeSpawner, pod: V1Pod, storage_name : str, namespace: str):
+def mount_volume(spawner: KubeSpawner, pod: V1Pod, storage_name : str, namespace: str, read_only : bool = False):
+    spawner.log.info(f"Attempting to mount {storage_name} on {namespace}...")
     storage = create_workspace_volume_if_not_exists(storage_name, namespace)
-
-    spawner.log.info(f"Attempting to mount {str(storage.name)}...")
 
     if storage:
         # Remove other user storage if workspace has dedicated storage specified
@@ -219,7 +219,7 @@ def mount_volume(spawner: KubeSpawner, pod: V1Pod, storage_name : str, namespace
         volume_mount = V1VolumeMount(
             name = storage_name,
             mount_path= mount_path,
-            read_only = False
+            read_only = read_only
         )
         pod.spec.volumes.append(volume)
         pod.spec.containers[0].volume_mounts.append(volume_mount)
@@ -229,16 +229,17 @@ def mount_volume(spawner: KubeSpawner, pod: V1Pod, storage_name : str, namespace
 def modify_pod_hook(spawner: KubeSpawner, pod: V1Pod):
     # Add additional storage based on workspace label on pod
     # This ensures that the correct storage is mounted into the correct workspace
-    spawner.log.info(f"Attempting to mount storage for pod")
     
     try:
         metadata: V1ObjectMeta = pod.metadata
+        spawner.log.info(f"Attempting to mount storage for pod {metadata.name} on {metadata.namespace}")
+
         namespace = metadata.namespace
         workspace = metadata.labels.get("workspace", "")
         if workspace:
             mount_volume(spawner, pod, workspace, namespace)
         
-        mount_volume(spawner, pod, "shared", namespace)
+        mount_volume(spawner, pod, "shared", namespace, read_only=True)
     except Exception as e:
         spawner.log.error(f"Error mounting storage! Error msg {str(e)}")
 
