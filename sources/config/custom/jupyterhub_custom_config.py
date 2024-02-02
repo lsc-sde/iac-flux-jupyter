@@ -17,6 +17,7 @@ from kubespawner.utils import get_k8s_model
 import z2jh
 import requests
 import urllib.parse
+import os
 
 def query_keycloak(spawner: KubeSpawner, url):
     spawner.log.info( f"Querying Keycloak at: {url}" )
@@ -234,7 +235,7 @@ def modify_pod_hook(spawner: KubeSpawner, pod: V1Pod):
         metadata: V1ObjectMeta = pod.metadata
         spawner.log.info(f"Attempting to mount storage for pod {metadata.name} on {metadata.namespace}")
 
-        namespace = metadata.namespace
+        namespace = os.environ.get("POD_NAMESPACE", "default")
         workspace = metadata.labels.get("workspace", "")
         if workspace:
             mount_volume(spawner, pod, workspace, namespace)
