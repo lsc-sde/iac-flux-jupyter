@@ -155,7 +155,8 @@ def get_workspace_volume_status(workspace_name: str, namespace: str):
     name = f"jupyter-{workspace_name}"
     exists = True
     try:
-        v1.read_namespaced_persistent_volume_claim(name, namespace)
+        thread = v1.read_namespaced_persistent_volume_claim(name, namespace, async_req = True)
+        response = thread.get()
     except client.exceptions.ApiException as e:
         if e.status == 404:
             exists = False
