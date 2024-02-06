@@ -1,8 +1,0 @@
-apiVersion: v1
-kind: Namespace
-metadata:
-  labels:
-    kubernetes.io/metadata.name: jupyterhub
-    lsc-sde.io/injectKeycloakCertificates: "true"
-    lsc-sde.io/injectJupyterCertificates: "true"
-  name: jupyterhub
