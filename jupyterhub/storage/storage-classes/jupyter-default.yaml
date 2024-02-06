@@ -8,13 +8,13 @@ metadata:
 provisioner: file.csi.azure.com
 parameters:
   skuName: Standard_ZRS
-  location: uksouth
-  storageAccount: lscsdesandboxw6k82k0qj
+  location: ${azure_location}
+  storageAccount: ${azure_storage_account}
   storeAccountKey: "true"
   secretName: jupyter-storage
   secretNamespace: jupyterhub
-  server: lscsdesandboxw6k82k0qj.privatelink.file.core.windows.net
-  resourceGroup: lscsdesandbox-rg
+  server: ${azure_storage_account}.privatelink.file.core.windows.net
+  resourceGroup: ${azure_resource_group}
 mountOptions:
   - dir_mode=0777
   - file_mode=0777

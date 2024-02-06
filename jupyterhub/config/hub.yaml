@@ -5,17 +5,6 @@ hub:
   image:
     pullPolicy: Always
   config:
-    AzureAdOAuthenticator:
-      client_id: 35517ff9-9844-45ec-b32d-46cff0fae54e
-      tenant_id: 90a86382-fc9f-459c-b91a-9852fb08b2cd
-      scope:
-        - openid
-        - name
-        - profile
-        - email
-      username_claim: upn
-      admin_users:
-        - vishnu.chandrabalan@lthtr.nhs.uk
     JupyterHub:
       authenticator_class: azuread
       admin_access: true

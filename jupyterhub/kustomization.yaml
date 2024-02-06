@@ -8,6 +8,8 @@ resources:
   - ingress.yaml
   - namespace.yaml
   - storage
+  - config
+  - package
 configMapGenerator:
   - name: environment-config
     files:

@@ -9,7 +9,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-  - host: sandbox-jupyter.xlscsde.nhs.uk
+  - host: ${dns_prefix}jupyter.${private_dnz_zone}
     http:
       paths:
       - pathType: Prefix
@@ -21,5 +21,5 @@ spec:
               name: http
   tls:
   - hosts:
-    - sandbox-jupyter.xlscsde.nhs.uk
-    secretName: sandbox-jupyter.xlscsde.nhs.uk-tls
+    - ${dns_prefix}jupyter.${private_dnz_zone}
+    secretName: ${dns_prefix}jupyter.${private_dnz_zone}-tls
