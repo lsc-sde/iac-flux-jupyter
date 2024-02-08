@@ -28,7 +28,19 @@ You will also need to adjust your machines hosts file to include the line:
 ```
 
 ## Keycloak API Documentation
-At the keycloak API documentation isn't great the following is an example of the /admin/realms/{realm}/groups API:
+There are two roles within keycloak needed for jupyter to function correctly:
+
+* jupyter-users
+* jupyter-admins
+
+These two roles should be associated so that jupyter-admins are automatically part of jupyter-users.
+
+Jupyter users should also be associated with the following client roles:
+* realm-management - query groups
+* account - view groups
+* realm-management - view users
+
+The following is an example of the /admin/realms/{realm}/groups API:
 ```json
 [
     {
