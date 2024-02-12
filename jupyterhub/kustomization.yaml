@@ -3,7 +3,6 @@ kind: Kustomization
 namespace: jupyterhub
 resources:
   - secret.yaml
-  - secret-job.yaml
   - ingress.yaml
   - storage
   - config
