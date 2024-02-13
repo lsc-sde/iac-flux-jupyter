@@ -75,9 +75,9 @@ spec:
   - kind: Secret
     name: jupyter-cookie
     valuesKey: jupyterhub_cookie_secret
-    targetPath: hub.extraFiles.cookieSecret.binaryData
+    targetPath: hub.cookieSecret
 
   - kind: Secret
     name: jupyter-credentials
     valuesKey: clientsecret
-    targetPath: hub.cookieSecret
+    targetPath: hub.config.GenericOAuthenticator.client_secret
