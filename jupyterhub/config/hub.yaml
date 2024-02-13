@@ -27,6 +27,9 @@ hub:
    
     customConfig:
       mountPath: /usr/local/etc/jupyterhub/jupyterhub_config.d/jupyterhub_config_custom.py
+    
+    cookieSecret:
+      mountPath: /srv/jupyterhub/jupyterhub_cookie_secret
 
   # https://discourse.jupyter.org/t/trouble-configuring-ingress-for-helm-chart/5050/3
   #baseUrl: /landerhub
