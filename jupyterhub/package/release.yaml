@@ -3,14 +3,14 @@ kind: HelmRelease
 metadata:
   name: jupyterhub
   annotations:
-    lsc-sde.nhs.uk/definitionVersion: "1.0.10"
+    xlscsde.nhs.uk/flux-branch: "${jupyter_branch}"
 spec:
   targetNamespace: jupyterhub
   releaseName: jupyterhub
   chart:
     spec:
       chart: jupyterhub
-      version: 3.2.1
+      version: "${jupyter_chart_version}"
       sourceRef:
         kind: HelmRepository
         name: jupyterhub
