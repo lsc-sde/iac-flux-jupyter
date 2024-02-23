@@ -4,6 +4,8 @@ prePuller:
 hub:
   image:
     pullPolicy: Always
+    name: lscsde/jupyterhub
+    tag: 0.1.0
   config:
     JupyterHub:
       authenticator_class: azuread
@@ -25,8 +27,8 @@ hub:
     customPageTemplate:
       mountPath: /usr/local/etc/jupyterhub/custom_templates/page.html
    
-    customConfig:
-      mountPath: /usr/local/etc/jupyterhub/jupyterhub_config.d/jupyterhub_config_custom.py
+    #customConfig:
+    #  mountPath: /usr/local/etc/jupyterhub/jupyterhub_config.d/jupyterhub_config_custom.py
     
   # https://discourse.jupyter.org/t/trouble-configuring-ingress-for-helm-chart/5050/3
   #baseUrl: /landerhub

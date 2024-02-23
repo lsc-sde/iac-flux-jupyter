@@ -57,10 +57,10 @@ spec:
   - kind: ConfigMap
     name: workspace-config
 
-  - kind: ConfigMap
-    name: jupyterhub-extra-files-encoded
-    valuesKey: jupyterhub_custom_config.py
-    targetPath: hub.extraFiles.customConfig.binaryData
+  #- kind: ConfigMap
+  #  name: jupyterhub-extra-files-encoded
+  #  valuesKey: jupyterhub_custom_config.py
+  #  targetPath: hub.extraFiles.customConfig.binaryData
 
   - kind: ConfigMap
     name: jupyterhub-extra-files-encoded
