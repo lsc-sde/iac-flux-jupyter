@@ -4,7 +4,7 @@ namespace: jupyterhub
 configMapGenerator:
   - name: jupyterhub-extra-files
     files:
-      - jupyterhub_custom_config.py=jupyterhub_custom_config.py
+      #- jupyterhub_custom_config.py=jupyterhub_custom_config.py
       - page.html=page.html
       - spawn.html=spawn.html
 generatorOptions:
