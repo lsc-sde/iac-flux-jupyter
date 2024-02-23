@@ -5,7 +5,7 @@ hub:
   image:
     pullPolicy: Always
     name: lscsde/jupyterhub
-    tag: 0.1.0
+    tag: 0.1.1
   config:
     JupyterHub:
       authenticator_class: azuread
