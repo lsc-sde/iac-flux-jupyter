@@ -4,6 +4,7 @@ namespace: jupyterhub
 resources:
   - secret.yaml
   - ingress.yaml
+  - clusterrolebindings.yaml
   - storage
   - config
   - package
