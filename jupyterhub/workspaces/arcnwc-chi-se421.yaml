@@ -10,8 +10,8 @@ spec:
     Utilisation of Health Care Record Linkage to Assess Potential for Intervention to prevent hospitalisation of infants with respiratory illness.
   
   validity:
-    availableFrom: 2024-02-22
-    expires: 2025-02-22
+    availableFrom: "2024-02-22"
+    expires: "2025-02-22"
   
   jupyterWorkspace:
     image: lscsde/datascience-notebook-default:0.1.0

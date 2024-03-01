@@ -10,8 +10,8 @@ spec:
     Basic environment for testing with Python R and Julia.
   
   validity:
-    availableFrom: 2022-01-01
-    expires: 2030-01-01
+    availableFrom: "2022-01-01"
+    expires: "2030-01-01"
   
   jupyterWorkspace:
     image: lscsde/datascience-notebook-default:0.1.0
