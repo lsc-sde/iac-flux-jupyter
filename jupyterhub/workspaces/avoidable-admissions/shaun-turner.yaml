@@ -5,6 +5,6 @@ metadata:
   annotations:
     kustomize.toolkit.fluxcd.io/prune: disabled
 spec:
-  workspace: avoidable-admissions-workspace
+  workspace: avoidable-admissions
   username: "shaun.turner1@nhs.net"
   expires: "2030-01-01"
