@@ -5,7 +5,7 @@ hub:
   image:
     pullPolicy: Always
     name: lscsde/jupyterhub
-    tag: 0.1.1
+    tag: 0.1.2
   config:
     JupyterHub:
       authenticator_class: azuread
@@ -32,6 +32,8 @@ hub:
     
   # https://discourse.jupyter.org/t/trouble-configuring-ingress-for-helm-chart/5050/3
   #baseUrl: /landerhub
-  extraEnv: {}
+  extraEnv:   
+  - name: WORKSPACE_MANAGER
+    value: lscsde
   livenessProbe:
     initialDelaySeconds: 5
