@@ -30,8 +30,8 @@ hub:
 
       claim_groups_key: realm_roles
 
-    JupyterHub:
-      authenticator_class: generic-oauth
+    #JupyterHub:
+    #  authenticator_class: generic-oauth
 
   extraVolumes:
   - name: jupyterhub-certificates
