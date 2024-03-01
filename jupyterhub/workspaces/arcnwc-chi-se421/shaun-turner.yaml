@@ -1,10 +1,10 @@
 apiVersion: xlscsde.nhs.uk/v1
 kind: AnalyticsWorkspaceBinding
 metadata:
-  name: default-generic-workspace-shaun-turner
+  name: arcnwc-chi-se421-shaun-turner
   annotations:
     kustomize.toolkit.fluxcd.io/prune: disabled
 spec:
-  workspace: default-generic-workspace
+  workspace: arcnwc-chi-se421
   username: "shaun.turner1@nhs.net"
   expires: "2030-01-01"

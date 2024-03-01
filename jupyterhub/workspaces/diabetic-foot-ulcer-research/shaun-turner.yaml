@@ -1,10 +1,10 @@
 apiVersion: xlscsde.nhs.uk/v1
 kind: AnalyticsWorkspaceBinding
 metadata:
-  name: default-generic-workspace-shaun-turner
+  name: diabetic-foot-ulcer-research-shaun-turner
   annotations:
     kustomize.toolkit.fluxcd.io/prune: disabled
 spec:
-  workspace: default-generic-workspace
+  workspace: diabetic-foot-ulcer-research
   username: "shaun.turner1@nhs.net"
   expires: "2030-01-01"
