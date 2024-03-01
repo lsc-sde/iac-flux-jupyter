@@ -3,9 +3,11 @@ kind: Kustomization
 resources:
   - advanced-generic-workspace.yaml
   - default-generic-workspace.yaml
+  - default-generic-workspace
   - avoidable-admissions.yaml
   - diabetic-foot-ulcer-research.yaml
   - arcnwc-chi-se419.yaml
   - arcnwc-chi-se421.yaml
   - vc-sd-workspace.yaml
   - lth-data-science-team-workspace.yaml
+  - lth-data-science-team-workspace
