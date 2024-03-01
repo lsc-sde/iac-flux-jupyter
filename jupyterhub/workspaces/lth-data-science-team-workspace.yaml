@@ -1,0 +1,19 @@
+apiVersion: xlscsde.nhs.uk/v1
+kind: AnalyticsWorkspace
+metadata:
+  name: lth-data-science-team-workspace
+  annotations:
+    kustomize.toolkit.fluxcd.io/prune: disabled
+spec:
+  displayName: LTH Data Science Team Workspace
+  description: |
+    Shared workspace for LTH DST
+  
+  validity:
+    availableFrom: 2022-01-01
+    expires: 2030-01-01
+  
+  jupyterWorkspace:
+    image: lscsde/datascience-notebook-default:0.1.0
+    persistentVolumeClaim: 
+      name: jupyter-lth-data-science-team-workspace

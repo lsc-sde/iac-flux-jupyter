@@ -1,0 +1,19 @@
+apiVersion: xlscsde.nhs.uk/v1
+kind: AnalyticsWorkspace
+metadata:
+  name: avoidable-admissions
+  annotations:
+    kustomize.toolkit.fluxcd.io/prune: disabled
+spec:
+  displayName: Avoidable Admissions
+  description: |
+    Collaboration with Lancaster University on Avoidable Admissions
+  
+  validity:
+    availableFrom: 2023-09-01
+    expires: 2026-07-01
+  
+  jupyterWorkspace:
+    image: lscsde/datascience-notebook-default:0.1.0
+    persistentVolumeClaim: 
+      name: jupyter-avoidable-admissions

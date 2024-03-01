@@ -8,6 +8,7 @@ resources:
   - storage
   - config
   - package
+  - workspaces
 configMapGenerator:
   - name: environment-config
     files:
