@@ -1,0 +1,65 @@
+apiVersion: xlscsde.nhs.uk/v1
+kind: AnalyticsWorkspaceBinding
+metadata:
+  name: arcnwc-chi-se419-shaun-turner
+  annotations:
+    kustomize.toolkit.fluxcd.io/prune: disabled
+spec:
+  workspace: arcnwc-chi-se419
+  username: "shaun.turner1@nhs.net"
+  expires: "2030-01-01"
+---
+apiVersion: xlscsde.nhs.uk/v1
+kind: AnalyticsWorkspaceBinding
+metadata:
+  name: arcnwc-chi-se419-vishnu-chandrabalan
+  annotations:
+    kustomize.toolkit.fluxcd.io/prune: disabled
+spec:
+  workspace: arcnwc-chi-se419
+  username: "vishnu.chandrabalan@lthtr.nhs.uk"
+  expires: "2030-01-01"
+---
+apiVersion: xlscsde.nhs.uk/v1
+kind: AnalyticsWorkspaceBinding
+metadata:
+  name: arcnwc-chi-se419-konstantinos-daras
+  annotations:
+    kustomize.toolkit.fluxcd.io/prune: disabled
+spec:
+  workspace: arcnwc-chi-se419
+  username: "konstantinos.daras@lthtr.nhs.uk"
+  expires: "2030-01-01"
+---
+apiVersion: xlscsde.nhs.uk/v1
+kind: AnalyticsWorkspaceBinding
+metadata:
+  name: arcnwc-chi-se419-olly-butters
+  annotations:
+    kustomize.toolkit.fluxcd.io/prune: disabled
+spec:
+  workspace: arcnwc-chi-se419
+  username: "olly.butters@lthtr.nhs.uk"
+  expires: "2030-01-01"
+---
+apiVersion: xlscsde.nhs.uk/v1
+kind: AnalyticsWorkspaceBinding
+metadata:
+  name: arcnwc-chi-se419-pieta-schofield
+  annotations:
+    kustomize.toolkit.fluxcd.io/prune: disabled
+spec:
+  workspace: arcnwc-chi-se419
+  username: "pieta.schofield@lthtr.nhs.uk"
+  expires: "2030-01-01"
+---
+apiVersion: xlscsde.nhs.uk/v1
+kind: AnalyticsWorkspaceBinding
+metadata:
+  name: arcnwc-chi-se419-roberto-villegas-diaz
+  annotations:
+    kustomize.toolkit.fluxcd.io/prune: disabled
+spec:
+  workspace: arcnwc-chi-se419
+  username: "roberto.villegas-diaz@lthtr.nhs.uk"
+  expires: "2030-01-01"

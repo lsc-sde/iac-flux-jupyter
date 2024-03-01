@@ -1,0 +1,21 @@
+apiVersion: xlscsde.nhs.uk/v1
+kind: AnalyticsWorkspaceBinding
+metadata:
+  name: default-generic-workspace-shaun-turner
+  annotations:
+    kustomize.toolkit.fluxcd.io/prune: disabled
+spec:
+  workspace: default-generic-workspace
+  username: "shaun.turner1@nhs.net"
+  expires: "2030-01-01"
+---
+apiVersion: xlscsde.nhs.uk/v1
+kind: AnalyticsWorkspaceBinding
+metadata:
+  name: default-generic-workspace-vishnu-chandrabalan
+  annotations:
+    kustomize.toolkit.fluxcd.io/prune: disabled
+spec:
+  workspace: default-generic-workspace
+  username: "vishnu.chandrabalan@lthtr.nhs.uk"
+  expires: "2030-01-01"

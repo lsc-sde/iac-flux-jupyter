@@ -1,0 +1,54 @@
+apiVersion: xlscsde.nhs.uk/v1
+kind: AnalyticsWorkspaceBinding
+metadata:
+  name: avoidable-admissions-shaun-turner
+  annotations:
+    kustomize.toolkit.fluxcd.io/prune: disabled
+spec:
+  workspace: avoidable-admissions
+  username: "shaun.turner1@nhs.net"
+  expires: "2030-01-01"
+---
+apiVersion: xlscsde.nhs.uk/v1
+kind: AnalyticsWorkspaceBinding
+metadata:
+  name: avoidable-admissions-vishnu-chandrabalan
+  annotations:
+    kustomize.toolkit.fluxcd.io/prune: disabled
+spec:
+  workspace: avoidable-admissions
+  username: "vishnu.chandrabalan@lthtr.nhs.uk"
+  expires: "2030-01-01"
+---
+apiVersion: xlscsde.nhs.uk/v1
+kind: AnalyticsWorkspaceBinding
+metadata:
+  name: avoidable-admissions-alex-garner
+  annotations:
+    kustomize.toolkit.fluxcd.io/prune: disabled
+spec:
+  workspace: avoidable-admissions
+  username: "alex.garner@lthtr.nhs.uk"
+  expires: "2030-01-01"
+---
+apiVersion: xlscsde.nhs.uk/v1
+kind: AnalyticsWorkspaceBinding
+metadata:
+  name: avoidable-admissions-jo-knight
+  annotations:
+    kustomize.toolkit.fluxcd.io/prune: disabled
+spec:
+  workspace: avoidable-admissions
+  username: "jo.knight@lthtr.nhs.uk"
+  expires: "2030-01-01"
+---
+apiVersion: xlscsde.nhs.uk/v1
+kind: AnalyticsWorkspaceBinding
+metadata:
+  name: avoidable-admissions-quinta-ashcroft
+  annotations:
+    kustomize.toolkit.fluxcd.io/prune: disabled
+spec:
+  workspace: avoidable-admissions
+  username: "quinta.ashcroft@lthtr.nhs.uk"
+  expires: "2030-01-01"

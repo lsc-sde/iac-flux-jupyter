@@ -1,0 +1,32 @@
+apiVersion: xlscsde.nhs.uk/v1
+kind: AnalyticsWorkspaceBinding
+metadata:
+  name: vc-sd-workspace-shaun-turner
+  annotations:
+    kustomize.toolkit.fluxcd.io/prune: disabled
+spec:
+  workspace: vc-sd-workspace
+  username: "shaun.turner1@nhs.net"
+  expires: "2030-01-01"
+---
+apiVersion: xlscsde.nhs.uk/v1
+kind: AnalyticsWorkspaceBinding
+metadata:
+  name: vc-sd-workspace-vishnu-chandrabalan
+  annotations:
+    kustomize.toolkit.fluxcd.io/prune: disabled
+spec:
+  workspace: vc-sd-workspace
+  username: "vishnu.chandrabalan@lthtr.nhs.uk"
+  expires: "2030-01-01"
+---
+apiVersion: xlscsde.nhs.uk/v1
+kind: AnalyticsWorkspaceBinding
+metadata:
+  name: vc-sd-workspace-stephen-dobson
+  annotations:
+    kustomize.toolkit.fluxcd.io/prune: disabled
+spec:
+  workspace: vc-sd-workspace
+  username: "stephen.dobson@lthtr.nhs.uk"
+  expires: "2030-01-01"
