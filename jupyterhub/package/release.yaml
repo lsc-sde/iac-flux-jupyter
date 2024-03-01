@@ -80,4 +80,4 @@ spec:
   - kind: Secret
     name: jupyter-credentials
     valuesKey: clientsecret
-    targetPath: hub.config.GenericOAuthenticator.client_secret
+    targetPath: hub.config.AzureAdOAuthenticator.client_secret

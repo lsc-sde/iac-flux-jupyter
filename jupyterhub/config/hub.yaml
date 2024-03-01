@@ -7,6 +7,19 @@ hub:
     name: lscsde/jupyterhub
     tag: 0.1.2
   config:
+    AzureAdOAuthenticator:
+      client_id: ${jupyterhub_client_id}
+      oauth_callback_url: "https://${dns_prefix}jupyter.${private_dnz_zone}/hub/oauth_callback"
+      tenant_id: ${azure_tenant_id}
+      scope:
+        - openid
+        - name
+        - profile
+        - email
+      username_claim: upn
+      admin_users:
+        - vishnu.chandrabalan@lthtr.nhs.uk
+        - shaun.turner1@nhs.net
     JupyterHub:
       authenticator_class: azuread
       admin_access: true
