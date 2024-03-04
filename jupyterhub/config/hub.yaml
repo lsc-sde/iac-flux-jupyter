@@ -16,6 +16,8 @@ hub:
         - name
         - profile
         - email
+        - groups
+        - upn
       username_claim: email
       admin_users:
         - vishnu.chandrabalan@lthtr.nhs.uk
