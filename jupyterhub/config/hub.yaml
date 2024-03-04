@@ -18,7 +18,7 @@ hub:
       #   - email
       #   - groups
       #   - upn
-      username_claim: email
+      username_claim: unique_name
       #manage_groups: true
       #allowed_groups:
       #- admin
