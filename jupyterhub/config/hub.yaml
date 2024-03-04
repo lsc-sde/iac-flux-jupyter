@@ -16,7 +16,7 @@ hub:
         - name
         - profile
         - email
-      username_claim: upn
+      username_claim: email
       admin_users:
         - vishnu.chandrabalan@lthtr.nhs.uk
         - shaun.turner1@nhs.net
