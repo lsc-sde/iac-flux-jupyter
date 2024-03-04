@@ -26,9 +26,9 @@ hub:
       user_groups_claim: groups
       admin_groups:
       - admin
-      #admin_users:
-      #  - vishnu.chandrabalan@lthtr.nhs.uk
-      #  - shaun.turner1@nhs.net
+      admin_users:
+        - vishnu.chandrabalan@lthtr.nhs.uk
+        - shaun.turner1@nhs.net
     JupyterHub:
       authenticator_class: azuread
       admin_access: true
