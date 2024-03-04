@@ -11,13 +11,13 @@ hub:
       client_id: ${jupyterhub_client_id}
       oauth_callback_url: "https://${dns_prefix}jupyter.${private_dnz_zone}/hub/oauth_callback"
       tenant_id: ${azure_tenant_id}
-      # scope:
-      #   - openid
-      #   - name
-      #   - profile
-      #   - email
-      #   - groups
-      #   - upn
+      scope:
+        - openid
+        - name
+        - profile
+        - email
+        - groups
+        - roles
       username_claim: unique_name
       #manage_groups: true
       #allowed_groups:
