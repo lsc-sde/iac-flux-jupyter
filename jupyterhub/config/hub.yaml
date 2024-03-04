@@ -22,6 +22,7 @@ hub:
       allowed_groups:
       - admin
       - user
+      user_groups_claim: groups
       admin_groups:
       - admin
       #admin_users:
