@@ -25,7 +25,7 @@ hub:
       - "${jupyterhub_admins_role}"
       user_groups_claim: groups
       admin_groups:
-      - admin
+      - "${jupyterhub_admins_role}"
       allowed_users:
       - vishnu.chandrabalan@lthtr.nhs.uk
       - shaun.turner1@nhs.net
