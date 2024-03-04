@@ -19,6 +19,7 @@ hub:
         - groups
         - upn
       username_claim: email
+      manage_groups: true
       allowed_groups:
       - admin
       - user
