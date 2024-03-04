@@ -20,6 +20,7 @@ hub:
         - roles
       username_claim: unique_name
       manage_groups: true
+      allow_all: true
       allowed_groups:
       - "${jupyterhub_users_role}"
       - "${jupyterhub_admins_role}"
