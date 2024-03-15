@@ -15,8 +15,6 @@ metadata:
   name: neurosurgery-generic-workspace-frazer-obrien
   annotations:
     kustomize.toolkit.fluxcd.io/prune: disabled
-  labels:
-    xlscsde.nhs.uk/username: frazer.o___brien___lthtr.nhs.uk # workaround for apostrophe
 spec:
   workspace: neurosurgery-generic-workspace
   username: "frazer.o'brien@lthtr.nhs.uk"
