@@ -62,15 +62,15 @@ spec:
   #  valuesKey: jupyterhub_custom_config.py
   #  targetPath: hub.extraFiles.customConfig.binaryData
 
-  - kind: ConfigMap
-    name: jupyterhub-extra-files-encoded
-    valuesKey: page.html
-    targetPath: hub.extraFiles.customPageTemplate.binaryData
+  # - kind: ConfigMap
+  #   name: jupyterhub-extra-files-encoded
+  #   valuesKey: page.html
+  #   targetPath: hub.extraFiles.customPageTemplate.binaryData
 
-  - kind: ConfigMap
-    name: jupyterhub-extra-files-encoded
-    valuesKey: spawn.html
-    targetPath: hub.extraFiles.customSpawnPageTemplate.binaryData
+  # - kind: ConfigMap
+  #   name: jupyterhub-extra-files-encoded
+  #   valuesKey: spawn.html
+  #   targetPath: hub.extraFiles.customSpawnPageTemplate.binaryData
 
   - kind: Secret
     name: jupyter-cookie
