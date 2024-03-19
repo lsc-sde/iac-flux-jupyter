@@ -52,3 +52,14 @@ spec:
   workspace: diabetic-foot-ulcer-research
   username: "quinta.ashcroft@lthtr.nhs.uk"
   expires: "2030-01-01"
+---
+apiVersion: xlscsde.nhs.uk/v1
+kind: AnalyticsWorkspaceBinding
+metadata:
+  name: diabetic-foot-ulcer-research-shaghayegh-raad
+  annotations:
+    kustomize.toolkit.fluxcd.io/prune: disabled
+spec:
+  workspace: diabetic-foot-ulcer-research
+  username: "shaghayegh.raad@lthtr.nhs.uk"
+  expires: "2026-12-31"
