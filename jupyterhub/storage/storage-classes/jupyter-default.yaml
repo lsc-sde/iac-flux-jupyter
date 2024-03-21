@@ -5,7 +5,7 @@ apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
   name: jupyter-default
-provisioner: file.csi.azure.com
+provisioner: ${jupyter_storage_provisioner}
 parameters:
   skuName: Standard_ZRS
   location: ${azure_location}
