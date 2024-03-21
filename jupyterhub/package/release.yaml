@@ -32,7 +32,7 @@ spec:
     namespace: cert-manager
 
   - name: secrets-distributor
-    namespace: secrets-distributor
+    namespace: lscsde-config
   
   valuesFrom:
   # Shared Config
