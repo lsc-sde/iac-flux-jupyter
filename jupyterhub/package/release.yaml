@@ -27,6 +27,13 @@ spec:
       retries: -1
     disableWait: true
     disableWaitForJobs: true
+  dependsOn:
+  - name: trust-manager
+    namespace: cert-manager
+
+  - name: secrets-distributor
+    namespace: secrets-distributor
+  
   valuesFrom:
   # Shared Config
   - kind: ConfigMap
