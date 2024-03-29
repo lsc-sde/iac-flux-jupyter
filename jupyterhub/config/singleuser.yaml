@@ -4,10 +4,10 @@ singleuser:
   defaultUrl: "/lab"
   startTimeout: 900
   memory:
-    limit: 1G
+    limit: 4G
     guarantee: 256M
   cpu:
-    limit: 0.5
+    limit: 1
     guarantee: 0.25
   storage:
     capacity: 10Gi
