@@ -16,6 +16,6 @@ spec:
     expires: "2030-01-01"
   
   jupyterWorkspace:
-    image: lscsde/datascience-notebook-default:0.1.0
+    image: lscsde/datascience-notebook-default:0.1.18
     persistentVolumeClaim: 
       name: jupyter-diabetic-foot-ulcer-research
