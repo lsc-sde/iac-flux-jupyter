@@ -9,7 +9,7 @@ hub:
   config:
     AzureAdOAuthenticator:
       client_id: ${jupyterhub_client_id}
-      oauth_callback_url: "https://${dns_prefix}jupyter.${private_dnz_zone}/hub/oauth_callback"
+      oauth_callback_url: "https://${environment_dns_prefix}jupyter${environment_dns_suffix}.${private_dnz_zone}/hub/oauth_callback"
       tenant_id: ${azure_tenant_id}
       scope:
         - openid

@@ -10,7 +10,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-  - host: ${dns_prefix}jupyter.${private_dnz_zone}
+  - host: ${environment_dns_prefix}jupyter${environment_dns_suffix}.${private_dnz_zone}
     http:
       paths:
       - pathType: Prefix
@@ -22,5 +22,5 @@ spec:
               name: http
   tls:
   - hosts:
-    - ${dns_prefix}jupyter.${private_dnz_zone}
-    secretName: ${dns_prefix}jupyter.${private_dnz_zone}-tls
+    - ${environment_dns_prefix}jupyter${environment_dns_suffix}.${private_dnz_zone}
+    secretName: ${environment_dns_prefix}jupyter${environment_dns_suffix}.${private_dnz_zone}-tls
