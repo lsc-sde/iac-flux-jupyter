@@ -1,0 +1,25 @@
+apiVersion: xlscsde.nhs.uk/v1
+kind: AnalyticsWorkspace
+metadata:
+  name: uhmb-generic-workspace
+  annotations:
+    kustomize.toolkit.fluxcd.io/prune: disabled
+spec:
+  displayName: UHMB Generic Workspace
+  description: |
+    Shared workspace for UHMB Data Science Team  
+  validity:
+    availableFrom: "2024-04-24"
+    expires: "2030-12-31"
+  
+  jupyterWorkspace:
+    image: lscsde/datascience-notebook-default:0.1.19
+    persistentVolumeClaim: 
+      name: jupyter-uhmb-generic-workspace
+    resources:
+      requests:
+        memory: 256M
+        cpu: 0.1
+      limits:
+        memory: 6G
+        cpu: 1
