@@ -61,4 +61,5 @@ hub:
     value: lscsde
   livenessProbe:
     initialDelaySeconds: 5
+fullnameOverride: jupyterhub${environment_dns_suffix}
 nameOverride: jupyterhub${environment_dns_suffix}
