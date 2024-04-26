@@ -1,7 +1,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: jupyterhub
+  name: jupyterhub${environment_dns_suffix}
   annotations:
     xlscsde.nhs.uk/flux-branch: "${jupyter_branch}"
 spec:
