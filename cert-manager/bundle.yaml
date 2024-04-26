@@ -33,4 +33,4 @@ spec:
 
     namespaceSelector:
       matchLabels:
-        lsc-sde.io/injectJupyterCertificates: "true"
+        xlscsde.nhs.uk/injectJupyterCertificates: "true"
