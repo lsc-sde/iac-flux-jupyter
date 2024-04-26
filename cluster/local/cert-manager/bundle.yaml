@@ -25,4 +25,4 @@ spec:
 
     namespaceSelector:
       matchLabels:
-        xlscsde.nhs.uk/injectJupyterCertificates: "true"
+        kubernetes.io/metadata.name: ${jupyter_namespace}
