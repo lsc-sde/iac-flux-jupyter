@@ -1,7 +1,7 @@
 apiVersion: trust.cert-manager.io/v1alpha1
 kind: Bundle
 metadata:
-  name: jupyterhub-certificate-authority  
+  name: jupyterhub-certificate-authority${environment_dns_suffix}  
 spec:
   sources:
   - useDefaultCAs: true
