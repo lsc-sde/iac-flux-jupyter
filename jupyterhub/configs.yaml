@@ -50,4 +50,4 @@ singleuser:
 
   storage:
     dynamic:
-      storageClass: jupyter-default
+      storageClass: jupyter-default${environment_dns_suffix}
