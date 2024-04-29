@@ -11,4 +11,4 @@ roleRef:
   name: hub-persistentvolumes
 subjects:
 - kind: ServiceAccount
-  name: jupyterhub-hub
+  name: jupyterhub${environment_dns_suffix}-hub
