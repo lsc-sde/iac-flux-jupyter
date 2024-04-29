@@ -10,5 +10,5 @@ roleRef:
   name: analytics-workspace-management-admin
 subjects:
   - kind: ServiceAccount
-    name: hub
+    name: jupyterhub-hub
     namespace: ${jupyter_namespace}
