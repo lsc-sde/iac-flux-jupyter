@@ -30,6 +30,8 @@ hub:
       allowed_users:
       - vishnu.chandrabalan@lthtr.nhs.uk
       - shaun.turner1@nhs.net
+      admin_users:
+      - vishnu.chandrabalan@lthtr.nhs.uk
       enable_auth_state: true
     JupyterHub:
       authenticator_class: azuread
