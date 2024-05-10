@@ -2,13 +2,7 @@ hub:
   config:
     GenericOAuthenticator:
       client_id: jupyter
-      keycloak_api_base_url: https://${dns_prefix}keycloak.${private_dnz_zone}/admin/realms/lsc-sde
-      keycloak_token_url: https://${dns_prefix}keycloak.${private_dnz_zone}/realms/lsc-sde/protocol/openid-connect/token
-      oauth_callback_url: https://${dns_prefix}jupyter.${private_dnz_zone}/hub/oauth_callback
-      authorize_url: https://${dns_prefix}keycloak.${private_dnz_zone}/realms/lsc-sde/protocol/openid-connect/auth
-      token_url: https://${dns_prefix}keycloak.${private_dnz_zone}/realms/lsc-sde/protocol/openid-connect/token
-      userdata_url: https://${dns_prefix}keycloak.${private_dnz_zone}/realms/lsc-sde/protocol/openid-connect/userinfo
-      logout_redirect_url: https://${dns_prefix}keycloak.${private_dnz_zone}/realms/lsc-sde/protocol/openid-connect/logout
+      oauth_callback_url: https://${environment_dns_prefix}jupyter${environment_dns_suffix}.${private_dnz_zone}/hub/oauth_callback
       login_service: keycloak
       scope: 
       - 'openid'
@@ -36,7 +30,7 @@ hub:
   extraVolumes:
   - name: jupyterhub-certificates
     configMap:
-      name: jupyterhub-certificate-authority
+      name: jupyterhub-certificate-authority${environment_dns_suffix}
       defaultMode: 0644
 
   extraVolumeMounts:
@@ -56,4 +50,4 @@ singleuser:
 
   storage:
     dynamic:
-      storageClass: jupyter-default
+      storageClass: jupyter-default${environment_dns_suffix}

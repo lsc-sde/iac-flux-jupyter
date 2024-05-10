@@ -31,7 +31,7 @@ hub:
   extraVolumes:
   - name: jupyterhub-certificates
     configMap:
-      name: jupyterhub-certificate-authority
+      name: jupyterhub-certificate-authority${environment_dns_suffix}
       defaultMode: 0644
 
   extraVolumeMounts:
