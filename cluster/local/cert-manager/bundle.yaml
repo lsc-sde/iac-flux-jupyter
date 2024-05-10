@@ -1,7 +1,7 @@
 apiVersion: trust.cert-manager.io/v1alpha1
 kind: Bundle
 metadata:
-  name: jupyterhub-certificate-authority${environment_dns_suffix}  
+  name: jupyterhub-certificate-authority  
 spec:
   sources:
   - useDefaultCAs: true
@@ -25,4 +25,4 @@ spec:
 
     namespaceSelector:
       matchLabels:
-        kubernetes.io/metadata.name: ${jupyter_namespace}
+        lsc-sde.io/injectJupyterCertificates: "true"

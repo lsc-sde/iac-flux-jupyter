@@ -4,13 +4,13 @@ custom:
 # =============================================================================
   environments:
     jupyter_default: &jupyter_default
-      image: lscsde/datascience-notebook-default:0.1.19
+      image: lscsde/datascience-notebook-default:0.1.0 
       mem_guarantee: 512M
       mem_limit: 2G
       cpu_guarantee: 0.1
       cpu_limit: 0.5
     jupyter_advanced: &jupyter_advanced
-      image: lscsde/datascience-notebook-default:0.1.19
+      image: lscsde/datascience-notebook-default:0.1.0 
       mem_guarantee: 2G
       mem_limit: 16G
       cpu_guarantee: 0.2

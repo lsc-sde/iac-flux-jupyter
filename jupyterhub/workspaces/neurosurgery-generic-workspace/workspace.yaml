@@ -13,6 +13,6 @@ spec:
     expires: "2025-12-31"
   
   jupyterWorkspace:
-    image: lscsde/datascience-notebook-default:0.1.19
+    image: lscsde/datascience-notebook-default:0.1.0
     persistentVolumeClaim: 
       name: jupyter-neurosurgery-generic-workspace

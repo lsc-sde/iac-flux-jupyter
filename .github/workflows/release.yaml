@@ -11,5 +11,5 @@ jobs:
     uses: lsc-sde/lsc-sde/.github/workflows/flux-release.yaml@main
     with:
       directory: iac/flux/jupyter
-      yamlPath: jupyter_hub
+      yamlPath: jupyter_branch
     secrets: inherit
