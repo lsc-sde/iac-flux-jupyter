@@ -30,3 +30,14 @@ spec:
   workspace: uhmb-generic-workspace
   username: "catherine.jones@mbhci.nhs.uk"
   expires: "2030-12-31"
+---
+apiVersion: xlscsde.nhs.uk/v1
+kind: AnalyticsWorkspaceBinding
+metadata:
+  name: uhmb-generic-workspace-dale-wright
+  annotations:
+    kustomize.toolkit.fluxcd.io/prune: disabled
+spec:
+  workspace: uhmb-generic-workspace
+  username: "dale.wright@mbhci.nhs.uk"
+  expires: "2030-12-31"
