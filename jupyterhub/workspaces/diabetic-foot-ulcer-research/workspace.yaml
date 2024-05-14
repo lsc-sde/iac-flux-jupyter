@@ -19,3 +19,10 @@ spec:
     image: lscsde/datascience-notebook-default:0.1.19
     persistentVolumeClaim: 
       name: jupyter-diabetic-foot-ulcer-research
+    resources:
+      requests:
+        memory: "8Gi"
+        cpu: "250m"
+      limits:
+        memory: "16Gi"
+        cpu: "1"
