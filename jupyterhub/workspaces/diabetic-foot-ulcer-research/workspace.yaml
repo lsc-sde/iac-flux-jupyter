@@ -21,8 +21,8 @@ spec:
       name: jupyter-diabetic-foot-ulcer-research
     resources:
       requests:
-        memory: "8Gi"
+        memory: "8G"
         cpu: "250m"
       limits:
-        memory: "16Gi"
+        memory: "16G"
         cpu: "1"
