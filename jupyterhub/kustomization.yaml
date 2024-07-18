@@ -8,6 +8,7 @@ resources:
   - storage
   - config
   - package
+  - networkpolicy.yaml
 configMapGenerator:
   - name: environment-config
     files:

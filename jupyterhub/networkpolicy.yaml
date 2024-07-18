@@ -1,0 +1,46 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: ingress
+spec:
+  ingress:
+  - {}
+  podSelector: {}
+  policyTypes:
+  - Ingress
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: egress-dns
+spec:
+  egress:
+    - to:
+      - namespaceSelector:
+          matchLabels:
+            kubernetes.io/metadata.name: kube-system
+        podSelector:
+          matchLabels:
+            k8s-app: kube-dns
+      ports:
+      - protocol: TCP
+        port: 53
+      - protocol: UDP
+        port: 53
+  podSelector: 
+    matchLabels: {}
+  policyTypes:
+  - Egress
+---
+apiVersion: crd.projectcalico.org/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-api-access
+spec:
+  selector: all()
+  egress:
+    - action: Allow
+      destination:
+        services:
+          name: kubernetes
+          namespace: default
