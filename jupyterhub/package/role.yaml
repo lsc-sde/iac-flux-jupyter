@@ -18,7 +18,7 @@ metadata:
     component: hub
   name: hub-events-creation
 rules:
-- apiGroups: [""]
+- apiGroups: ["", "events.k8s.io"]
   resources: ["events"]
-  verbs: ["create"]
+  verbs: ["create", "list", "get"]
 ---
