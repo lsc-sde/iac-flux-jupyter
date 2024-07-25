@@ -5,7 +5,7 @@ hub:
   image:
     pullPolicy: Always
     name: lscsde/jupyterhub
-    tag: 0.1.23
+    tag: 0.1.24
   config:
     AzureAdOAuthenticator:
       client_id: ${jupyterhub_client_id}
