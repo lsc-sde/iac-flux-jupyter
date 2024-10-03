@@ -12,7 +12,7 @@ parameters:
   storageAccount: ${azure_storage_account}
   storeAccountKey: "true"
   secretName: jupyter-storage
-  secretNamespace: ${jupyter_namespace}
+  secretNamespace: ${jupyter_hub_namespace}
   server: ${azure_storage_account}.privatelink.file.core.windows.net
   resourceGroup: ${azure_resource_group}
 mountOptions:

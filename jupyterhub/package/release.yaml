@@ -5,7 +5,7 @@ metadata:
   annotations:
     xlscsde.nhs.uk/flux-branch: "${jupyter_branch}"
 spec:
-  targetNamespace: ${jupyter_namespace}
+  targetNamespace: ${jupyter_hub_namespace}
   releaseName: jupyterhub
   chart:
     spec:
@@ -14,7 +14,7 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: jupyterhub
-        namespace: ${jupyter_namespace}
+        namespace: ${jupyter_hub_namespace}
   interval: 5m0s
   timeout: 15m
   install:

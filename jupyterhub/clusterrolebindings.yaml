@@ -3,7 +3,7 @@ kind: ClusterRoleBinding
 metadata:
   labels:
     app.kubernetes.io/name: hub
-  name: ${jupyter_namespace}:analytics-workspace-management-admin
+  name: ${jupyter_hub_namespace}:analytics-workspace-management-admin
 roleRef:
   kind: ClusterRole
   apiGroup: rbac.authorization.k8s.io
@@ -11,4 +11,4 @@ roleRef:
 subjects:
   - kind: ServiceAccount
     name: jupyterhub${environment_dns_suffix}-hub
-    namespace: ${jupyter_namespace}
+    namespace: ${jupyter_hub_namespace}

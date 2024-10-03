@@ -29,4 +29,4 @@ spec:
 
     namespaceSelector:
       matchLabels:
-        kubernetes.io/metadata.name: ${jupyter_namespace}
+        kubernetes.io/metadata.name: ${jupyter_hub_namespace}
