@@ -61,6 +61,8 @@ hub:
   extraEnv:   
   - name: WORKSPACE_MANAGER
     value: lscsde
+  - name: KS_START_TIMEOUT
+    value: "120"
   livenessProbe:
     initialDelaySeconds: 5
 fullnameOverride: "jupyterhub${environment_dns_suffix}"
