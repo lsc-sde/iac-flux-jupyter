@@ -5,7 +5,7 @@ hub:
   image:
     pullPolicy: Always
     name: lscsde/jh-93
-    tag: 0.1.27-issues-93-launch-failure.1
+    tag: 0.1.27-issues-93-launch-failure.2
   config:
     AzureAdOAuthenticator:
       client_id: ${jupyterhub_client_id}
