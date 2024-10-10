@@ -32,6 +32,7 @@ hub:
       - shaun.turner1@nhs.net
       admin_users:
       - vishnu.chandrabalan@lthtr.nhs.uk
+      - shaun.turner1@nhs.net # This was added as part of a investigation on 2024-10-10 on the stage environment, this must not be propagated into live
       enable_auth_state: true
     JupyterHub:
       authenticator_class: azuread
