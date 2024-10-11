@@ -36,9 +36,8 @@ hub:
 
     KubeSpawner:
       k8s_api_request_timeout: 10
-      debug:
-        enabled: true
-        
+      debug: true
+
     JupyterHub:
       authenticator_class: azuread
       admin_access: true
