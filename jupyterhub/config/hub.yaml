@@ -33,6 +33,10 @@ hub:
       admin_users:
       - vishnu.chandrabalan@lthtr.nhs.uk
       enable_auth_state: true
+
+    KubeSpawner:
+      k8s_api_request_timeout: 10
+
     JupyterHub:
       authenticator_class: azuread
       admin_access: true
