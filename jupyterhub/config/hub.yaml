@@ -7,35 +7,6 @@ hub:
     name: lscsde/jupyterhub
     tag: 0.1.24
   config:
-    GenericOAuthenticator:
-      client_id: jupyter
-      client_secret: jupyter
-      keycloak_api_base_url: https://${environment_dns_prefix}keycloak${environment_dns_suffix}.${private_dnz_zone}/admin/realms/lsc-sde
-      oauth_callback_url: ""
-      authorize_url: https://${environment_dns_prefix}keycloak${environment_dns_suffix}.${private_dnz_zone}/realms/lsc-sde/protocol/openid-connect/auth
-      token_url: https://${environment_dns_prefix}keycloak${environment_dns_suffix}.${private_dnz_zone}/realms/lsc-sde/protocol/openid-connect/token
-      userdata_url: https://${environment_dns_prefix}keycloak${environment_dns_suffix}.${private_dnz_zone}/realms/lsc-sde/protocol/openid-connect/userinfo
-      logout_redirect_url: https://${environment_dns_prefix}keycloak${environment_dns_suffix}.${private_dnz_zone}/realms/lsc-sde/protocol/openid-connect/logout
-      login_service: keycloak
-      scope: 
-      - 'openid'
-      - 'profile'
-      - 'realm_groups'
-      
-      username_claim: workspace_id
-      username_key: workspace_id
-      userdata_params:
-        state: state
-        realm_groups: groups
-
-      admin_groups:
-      - jupyter-admins
-
-      allowed_groups: 
-      - jupyter-users
-
-      claim_groups_key: groups
-
     AzureAdOAuthenticator:
       client_id: ${jupyterhub_client_id}
       oauth_callback_url: "https://${environment_dns_prefix}jupyter${environment_dns_suffix}.${private_dnz_zone}/hub/oauth_callback"
