@@ -4,7 +4,12 @@ parent: Jupyter Hub
 layout: page
 ---
 
-The FluxCD Configuration for [Jupyter Hub](https://jupyter.org/hub). 
+The FluxCD Configuration for [Jupyter Hub](https://jupyter.org/hub). This configuration deploys and configures the jupyter hub helm chart from the [jupyter hub repository](https://jupyterhub.github.io/helm-chart/). The implementation is configured to use a [customized jupyter image](../../../../docker/jupyterhub/docs/image.md). It disables the default ingress inside of the helm chart and deploys it's own to match the configuration needed in the SDE.
+
+In addition to the helm chart deployment and configuration, the solution also deploys role binding that allows jupyter hub to query the kubernetes API for AWMS custom resources such as AnalyticsWorkspaces and AnalyticsWorkspaceBindings.
+
+Finally, the solution adds the storage class called jupyter-default. This is then used by the custom jupyter image when creating PVC's for each of the workspaces.
+
 
 ## Network Policies
 
