@@ -1,0 +1,176 @@
+apiVersion: xlscsde.nhs.uk/v1
+kind: AnalyticsWorkspace
+metadata:
+  name: default-generic-workspace
+  namespace: jh-test
+  annotations:
+    kustomize.toolkit.fluxcd.io/prune: disabled
+spec:
+  displayName: Default Generic Workspace
+  description: |
+    Basic environment for testing with Python R and Julia.
+  
+  validity:
+    availableFrom: "2022-01-01"
+    expires: "2030-01-01"
+  
+  jupyterWorkspace:
+    image: lscsde/datascience-notebook-default:0.1.0
+    persistentVolumeClaim: 
+      name: jupyter-default-generic-workspace
+    resources:
+      requests:
+        memory: "256M"
+        cpu: 0.1
+      limits:
+        memory: "1G"
+        cpu: 0.5
+---
+apiVersion: xlscsde.nhs.uk/v1
+kind: AnalyticsWorkspace
+metadata:
+  name: test-workspace
+  namespace: jh-test
+  annotations:
+    kustomize.toolkit.fluxcd.io/prune: disabled
+spec:
+  displayName: Test Workspace
+  description: |
+    A workspace designed to test the capabilities
+    of the AnalyticsWorkspace api's. This will be similar 
+    to the default generic workspace workspace, but will 
+    have slightly different parameters to ensure that 
+    individual functionality of the system is working.
+  
+  validity:
+    availableFrom: "2024-01-01"
+    expires: "2025-01-01"
+  
+  jupyterWorkspace:
+    image: lscsde/datascience-notebook-default:0.1.0
+    persistentVolumeClaim: 
+      name: jupyter-test-workspace
+    resources:
+      requests:
+        memory: "256M"
+        cpu: 0.1
+      limits:
+        memory: "1G"
+        cpu: 0.5
+---
+apiVersion: xlscsde.nhs.uk/v1
+kind: AnalyticsWorkspace
+metadata:
+  name: test-workspace-tolerations
+  namespace: jh-test
+  annotations:
+    kustomize.toolkit.fluxcd.io/prune: disabled
+spec:
+  displayName: Test Workspace with Tolerations
+  description: |
+    A workspace designed to test the capabilities
+    of the AnalyticsWorkspace api's. This will be similar 
+    to the default generic workspace workspace, but will 
+    have slightly different parameters to ensure that 
+    individual functionality of the system is working.
+  
+  validity:
+    availableFrom: "2024-01-01"
+    expires: "2025-01-01"
+  
+  jupyterWorkspace:
+    image: lscsde/datascience-notebook-default:0.1.0
+    resources:
+      requests:
+        memory: "256M"
+        cpu: 0.15
+      limits:
+        memory: "512M"
+        cpu: 0.25
+    
+    tolerations:
+    - key: "sdeAppType"
+      value: "datascience-large"
+      effect: "NoSchedule"
+    
+    nodeSelector:
+      lsc-sde.nhs.uk/nodeType: datascience-large
+---
+apiVersion: xlscsde.nhs.uk/v1
+kind: AnalyticsWorkspace
+metadata:
+  name: omop-workspace
+  namespace: jh-test
+  annotations:
+    kustomize.toolkit.fluxcd.io/prune: disabled
+spec:
+  displayName: OMOP Darwin Workspace
+  description: |
+    OMOP workspace test
+  
+  validity:
+    availableFrom: "2024-07-08"
+    expires: "2024-10-01"
+  
+  jupyterWorkspace:
+    image: lscsde/docker-datascience-jupyter-omop:darwin-v1.4.0-amd64
+    persistentVolumeClaim: 
+      name: jupyter-omop-darwin-workspace
+    resources:
+      requests:
+        memory: "256M"
+        cpu: 0.1
+      limits:
+        memory: "1G"
+        cpu: 0.5
+EOF
+kubectl apply -f workspaces.yaml
+
+cat <<EOF > workspace-bindings.yaml
+apiVersion: xlscsde.nhs.uk/v1
+kind: AnalyticsWorkspaceBinding
+metadata:
+  name: default-generic-workspace-jovyan
+  namespace: jh-test
+  annotations:
+    kustomize.toolkit.fluxcd.io/prune: disabled
+spec:
+  workspace: default-generic-workspace
+  username: "jovyan"
+  expires: "2030-01-01"
+---
+apiVersion: xlscsde.nhs.uk/v1
+kind: AnalyticsWorkspaceBinding
+metadata:
+  name: test-workspace-jovyan
+  namespace: jh-test
+  annotations:
+    kustomize.toolkit.fluxcd.io/prune: disabled
+spec:
+  workspace: test-workspace
+  username: "jovyan"
+  expires: "2029-01-01"
+---
+apiVersion: xlscsde.nhs.uk/v1
+kind: AnalyticsWorkspaceBinding
+metadata:
+  name: test-workspace-tolerations-jovyan
+  namespace: jh-test
+  annotations:
+    kustomize.toolkit.fluxcd.io/prune: disabled
+spec:
+  workspace: test-workspace-tolerations
+  username: "jovyan"
+  expires: "2029-01-01"
+---
+apiVersion: xlscsde.nhs.uk/v1
+kind: AnalyticsWorkspaceBinding
+metadata:
+  name: omop-workspace-jovyan
+  namespace: jh-test
+  annotations:
+    kustomize.toolkit.fluxcd.io/prune: disabled
+spec:
+  workspace: omop-workspace
+  username: "jovyan"
+  expires: "2025-01-01"

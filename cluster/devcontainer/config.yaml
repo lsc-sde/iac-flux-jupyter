@@ -1,0 +1,56 @@
+hub:
+  image:
+    name: ${REGISTRY_NAME}:${REGISTRY_PORT}/${IMAGE_NAME}
+    tag: "${CURRENT_DATE}"
+    pullPolicy: Always
+  extraEnv:
+    DEFAULT_STORAGE_CLASS: "jupyter-default"
+    DEFAULT_STORAGE_ACCESS_MODES: "ReadWriteOnce"
+    DEFAULT_STORAGE_CAPACITY: "1Gi"
+
+  config:
+    GenericOAuthenticator:
+      client_id: jupyter
+      client_secret: jupyter
+      keycloak_api_base_url: https://keycloak.xlscsde.local/admin/realms/lsc-sde
+      oauth_callback_url: ""
+      authorize_url: https://keycloak.xlscsde.local/realms/lsc-sde/protocol/openid-connect/auth
+      token_url: https://keycloak.xlscsde.local/realms/lsc-sde/protocol/openid-connect/token
+      userdata_url: https://keycloak.xlscsde.local/realms/lsc-sde/protocol/openid-connect/userinfo
+      logout_redirect_url: https://keycloak.xlscsde.local/realms/lsc-sde/protocol/openid-connect/logout
+      login_service: keycloak
+      scope: 
+      - 'openid'
+      - 'profile'
+      - 'realm_groups'
+      
+      username_claim: workspace_id
+      username_key: workspace_id
+      userdata_params:
+        state: state
+        realm_groups: groups
+
+      admin_groups:
+      - jupyter-admins
+
+      allowed_groups: 
+      - jupyter-users
+
+      claim_groups_key: groups
+
+    JupyterHub:
+      authenticator_class: generic-oauth
+  
+  extraVolumes:
+  - name: jupyterhub-certificates
+    configMap:
+      name: xlscsde-local-bundle
+      defaultMode: 0644
+
+  extraVolumeMounts:
+  - name: jupyterhub-certificates
+    mountPath: /etc/ssl/certs
+    readOnly: true
+proxy:
+  service:
+    type: ClusterIP
