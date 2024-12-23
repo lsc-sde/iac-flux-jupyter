@@ -3,8 +3,6 @@ kind: AnalyticsWorkspace
 metadata:
   name: default-generic-workspace
   namespace: jh-test
-  annotations:
-    kustomize.toolkit.fluxcd.io/prune: disabled
 spec:
   displayName: Default Generic Workspace
   description: |
@@ -31,8 +29,6 @@ kind: AnalyticsWorkspace
 metadata:
   name: test-workspace
   namespace: jh-test
-  annotations:
-    kustomize.toolkit.fluxcd.io/prune: disabled
 spec:
   displayName: Test Workspace
   description: |
@@ -63,8 +59,6 @@ kind: AnalyticsWorkspace
 metadata:
   name: test-workspace-tolerations
   namespace: jh-test
-  annotations:
-    kustomize.toolkit.fluxcd.io/prune: disabled
 spec:
   displayName: Test Workspace with Tolerations
   description: |
@@ -101,8 +95,6 @@ kind: AnalyticsWorkspace
 metadata:
   name: omop-workspace
   namespace: jh-test
-  annotations:
-    kustomize.toolkit.fluxcd.io/prune: disabled
 spec:
   displayName: OMOP Darwin Workspace
   description: |
@@ -132,8 +124,6 @@ kind: AnalyticsWorkspaceBinding
 metadata:
   name: default-generic-workspace-jovyan
   namespace: jh-test
-  annotations:
-    kustomize.toolkit.fluxcd.io/prune: disabled
 spec:
   workspace: default-generic-workspace
   username: "jovyan"
@@ -144,8 +134,6 @@ kind: AnalyticsWorkspaceBinding
 metadata:
   name: test-workspace-jovyan
   namespace: jh-test
-  annotations:
-    kustomize.toolkit.fluxcd.io/prune: disabled
 spec:
   workspace: test-workspace
   username: "jovyan"
@@ -156,8 +144,6 @@ kind: AnalyticsWorkspaceBinding
 metadata:
   name: test-workspace-tolerations-jovyan
   namespace: jh-test
-  annotations:
-    kustomize.toolkit.fluxcd.io/prune: disabled
 spec:
   workspace: test-workspace-tolerations
   username: "jovyan"
@@ -168,8 +154,6 @@ kind: AnalyticsWorkspaceBinding
 metadata:
   name: omop-workspace-jovyan
   namespace: jh-test
-  annotations:
-    kustomize.toolkit.fluxcd.io/prune: disabled
 spec:
   workspace: omop-workspace
   username: "jovyan"
