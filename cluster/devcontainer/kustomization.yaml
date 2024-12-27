@@ -7,3 +7,4 @@ resources:
 - storageclass.yaml
 - ingress.yaml
 - workspaces.yaml
+- datasources.yaml

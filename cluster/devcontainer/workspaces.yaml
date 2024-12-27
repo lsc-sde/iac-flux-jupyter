@@ -115,10 +115,7 @@ spec:
       limits:
         memory: "1G"
         cpu: 0.5
-EOF
-kubectl apply -f workspaces.yaml
-
-cat <<EOF > workspace-bindings.yaml
+---
 apiVersion: xlscsde.nhs.uk/v1
 kind: AnalyticsWorkspaceBinding
 metadata:
