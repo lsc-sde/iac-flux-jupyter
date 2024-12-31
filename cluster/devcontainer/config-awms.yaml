@@ -1,1 +1,4 @@
 image: ${AWMS_IMAGE_NAME}
+env:
+- name: NAMESPACE
+  value: jh-test
