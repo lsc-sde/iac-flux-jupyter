@@ -1,1 +1,1 @@
-image: ${AMWS_IMAGE_NAME}
+image: ${AWMS_IMAGE_NAME}
