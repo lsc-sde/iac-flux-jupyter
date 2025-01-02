@@ -1,0 +1,11 @@
+apiVersion: xlscsde.nhs.uk/v1
+kind: AnalyticsCrate
+metadata:
+  name: test-crate
+spec:
+  displayName: Test Crate
+  description: |
+    This ro-crate exists to test functionality on devcontainers
+
+  repo:
+    url: https://github.com/lsc-sde/lsc-ro-crate-schema

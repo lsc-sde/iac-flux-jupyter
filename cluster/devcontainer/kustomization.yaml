@@ -8,3 +8,4 @@ resources:
 - ingress.yaml
 - workspaces.yaml
 - datasources.yaml
+- crates.yaml
