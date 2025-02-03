@@ -155,3 +155,43 @@ spec:
   workspace: omop-workspace
   username: "jovyan"
   expires: "2025-01-01"
+---
+apiVersion: xlscsde.nhs.uk/v1
+kind: AnalyticsWorkspaceBinding
+metadata:
+  name: default-generic-workspace-someone
+  namespace: jh-test
+spec:
+  workspace: default-generic-workspace
+  username: "someone@some.org"
+  expires: "2030-01-01"
+---
+apiVersion: xlscsde.nhs.uk/v1
+kind: AnalyticsWorkspaceBinding
+metadata:
+  name: test-workspace-someone
+  namespace: jh-test
+spec:
+  workspace: test-workspace
+  username: "someone@some.org"
+  expires: "2029-01-01"
+---
+apiVersion: xlscsde.nhs.uk/v1
+kind: AnalyticsWorkspaceBinding
+metadata:
+  name: test-workspace-tolerations-someone
+  namespace: jh-test
+spec:
+  workspace: test-workspace-tolerations
+  username: "someone@some.org"
+  expires: "2029-01-01"
+---
+apiVersion: xlscsde.nhs.uk/v1
+kind: AnalyticsWorkspaceBinding
+metadata:
+  name: omop-workspace-someone
+  namespace: jh-test
+spec:
+  workspace: omop-workspace
+  username: "someone@some.org"
+  expires: "2025-01-01"
