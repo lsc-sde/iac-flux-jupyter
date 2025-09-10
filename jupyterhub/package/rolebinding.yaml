@@ -1,31 +1,31 @@
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
+  namespace: jupyterhub
   labels:
     app: jupyterhub
     component: hub
   name: hub-persistentvolumes
-  namespace: ${jupyter_namespace}
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
   name: hub-persistentvolumes
 subjects:
-- kind: ServiceAccount
-  name: jupyterhub${environment_dns_suffix}-hub
+  - kind: ServiceAccount
+    name: jupyterhub${environment_dns_suffix}-hub
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
+  namespace: jupyterhub
   labels:
     app: jupyterhub
     component: hub
   name: hub-events-creation
-  namespace: ${jupyter_namespace}
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
   name: hub-events-creation
 subjects:
-- kind: ServiceAccount
-  name: jupyterhub${environment_dns_suffix}-hub
+  - kind: ServiceAccount
+    name: jupyterhub${environment_dns_suffix}-hub

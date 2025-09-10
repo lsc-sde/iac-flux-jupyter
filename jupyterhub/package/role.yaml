@@ -1,26 +1,27 @@
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
+  namespace: jupyterhub
   labels:
     app: jupyterhub
     component: hub
   name: hub-persistentvolumes
-  namespace: ${jupyter_namespace}
 rules:
-- apiGroups: [""]
-  resources: ["persistentvolumeclaims"]
-  verbs: ["create", "list", "get"]
+  - apiGroups: [""]
+    resources: ["persistentvolumeclaims"]
+    verbs: ["create", "list", "get"]
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
+  namespace: jupyterhub
   labels:
     app: jupyterhub
     component: hub
   name: hub-events-creation
-  namespace: ${jupyter_namespace}
 rules:
-- apiGroups: ["", "events.k8s.io"]
-  resources: ["events"]
-  verbs: ["create", "list", "get"]
+  - apiGroups: ["", "events.k8s.io"]
+    resources: ["events"]
+    verbs: ["create", "list", "get"]
 ---
+
