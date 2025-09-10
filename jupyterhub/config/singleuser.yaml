@@ -18,3 +18,6 @@ singleuser:
   extraEnv:
     # See https://github.com/jupyter/notebook/issues/5058
     JUPYTER_RUNTIME_DIR: /tmp
+  networkPolicy:
+    egressAllowRules:
+      privateIPs: true # allows access to other services in private VNETs in the SDE
