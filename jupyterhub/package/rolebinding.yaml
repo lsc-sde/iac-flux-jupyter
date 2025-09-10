@@ -5,6 +5,7 @@ metadata:
     app: jupyterhub
     component: hub
   name: hub-persistentvolumes
+  namespace: ${jupyter_namespace}
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
@@ -20,6 +21,7 @@ metadata:
     app: jupyterhub
     component: hub
   name: hub-events-creation
+  namespace: ${jupyter_namespace}
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role

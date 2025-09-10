@@ -5,6 +5,7 @@ metadata:
     app: jupyterhub
     component: hub
   name: hub-persistentvolumes
+  namespace: ${jupyter_namespace}
 rules:
 - apiGroups: [""]
   resources: ["persistentvolumeclaims"]
@@ -17,6 +18,7 @@ metadata:
     app: jupyterhub
     component: hub
   name: hub-events-creation
+  namespace: ${jupyter_namespace}
 rules:
 - apiGroups: ["", "events.k8s.io"]
   resources: ["events"]
